@@ -7,7 +7,7 @@ It is based on a singleton model that accepts a configuration and provides acces
 ## Installation
 
 ```bash
-yarn add https://github.com/dacom-core/unicoreJS#<version from tags, ex. v1.0.0-beta2>
+yarn add https://github.com/dacom-core/unicoreJS#<version from tags, ex. v1.0.0-beta3>
 ```
 
 Create a chainsMain.ts file with the following content:
