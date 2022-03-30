@@ -32,11 +32,11 @@ export default {
       rpcEndpoints: [
         {
           protocol: 'https',
-          host: 'api.intellect.run',
+          host: 'api.samplesite.com',
           port: 443,
         },
       ],
-      explorerApiUrl: 'https://explorer.gaia.holdings',
+      explorerApiUrl: 'https://explorer.samplesite.com',
     },
   ],
   ual: {
