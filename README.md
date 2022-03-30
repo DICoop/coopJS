@@ -11,7 +11,7 @@ TODO yarn and npm install.
 Create a chainsMain.ts file with the following content:
 
 ```typescript
-import ChainsSingleton from './uni-core/blockchain/chainsSingleton'
+import { ChainsSingleton } from 'unicore'
 import config from './config'
 
 const instance = new ChainsSingleton()
@@ -55,7 +55,7 @@ export default {
 Just import `chainsMain.ts` and call needed methods.
 
 ```typescript
-import { makePublicKeyByMnemonic } from '~/uni-core/auth'
+import { makePublicKeyByMnemonic } from 'unicore'
 import Chains from '~/chainsMain'
 
 const mnemonic = '...some mnemonic 12 words...'
@@ -79,4 +79,49 @@ const eosioGlobalData = await rootChain.eosioContract.getGlobalData()
 
 // Get account partner data
 const partnerData = await rootChain.partnersContract.getAccountPartner(account)
+```
+
+## Additional contracts
+
+You can use your own contracts.
+
+Example:
+
+Create eosioContract.ts:
+```typescript
+import {
+    BaseContract,
+    ReadApi,
+    TableCodeConfig,
+} from 'unicore'
+
+interface EosioGlobalData {
+    base_per_transaction_net_usage: number
+    context_free_discount_net_usage_den: number
+}
+
+class EosioContract extends BaseContract {
+    constructor(api: ReadApi, tableCodeConfig: TableCodeConfig) {
+        super(api, tableCodeConfig, 'eosio')
+    }
+
+    getGlobalData(): Promise<EosioGlobalData> {
+        return this.getSingleTableRow<EosioGlobalData>({
+            table: 'global',
+        })
+    }
+}
+
+export default EosioContract
+```
+
+And use it:
+```typescript
+import Chains from '~/chainsMain'
+import EosioContract from '~/eosioContract'
+
+const rootChain = Chains.getRootChain()
+const eosioContract = rootChain.applyContract(EosioContract)
+
+const data = await eosioContract.getGlobalData()
 ```
