@@ -1,5 +1,5 @@
 import ReadApi from '../readApi'
-import { TableCodeConfig } from '../types'
+import {Host, TableCodeConfig} from '../types'
 import BaseContract from './base'
 
 interface UserPowerData {
@@ -9,6 +9,30 @@ interface UserPowerData {
   staked: number
   username: string
   with_badges: number
+}
+
+interface MarketBalance {
+  balance: string
+  weight: string
+  contract: string
+}
+
+interface MarketPrice {
+  buy: string
+  sell: string
+}
+
+interface MarketData {
+  base: MarketBalance
+  id: number
+  name: string
+  quote: MarketBalance
+  supply: string
+  vesting_seconds: number
+  liquid: number // generated property
+  price: MarketPrice // generated property
+  stake: string // generated property
+  if_user_sell_all?: string // generated property
 }
 
 class CoreContract extends BaseContract {
@@ -33,6 +57,37 @@ class CoreContract extends BaseContract {
       username,
       with_badges: 0,
     }
+  }
+
+  async getMarket(host: Host, userPower: UserPowerData) {
+    const market = await this.getSingleTableRow<MarketData>({
+      table: 'powermarket',
+      scope: host.username,
+      lower_bound: 0,
+      limit: 1,
+    })
+
+    market.liquid = host.total_shares - Number(market.base.balance.split(' ')[0])
+    if (market.liquid === 0) {
+      market.liquid = 1
+    }
+
+    const price1 = Number(market.quote.balance.split(' ')[0])
+    const price2 = Number(market.base.balance.split(' ')[0])
+
+    market.price = {
+      buy: (price1 / price2).toFixed(host.quote_precision),
+      sell: (price1 / price2).toFixed(host.quote_precision),
+    }
+
+    market.stake = (userPower.power / market.liquid * 100).toFixed(3) || '0'
+
+    const res = Math.max(userPower.power * price1 / ( price2 + userPower.power), 0)
+    if (res) {
+      market.if_user_sell_all = res.toFixed(4)
+    }
+
+    return market
   }
 }
 
