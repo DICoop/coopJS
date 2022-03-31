@@ -1,5 +1,6 @@
 import ReadApi from '../readApi'
 import { TableCodeConfig } from '../types'
+import {TableResult} from "../../eos/types";
 
 interface TableRowsArgs {
   scope?: string
@@ -11,6 +12,7 @@ interface TableRowsArgs {
   key_type?: string
   index_position?: number
   parseMetaAsJson?: boolean
+  getAllRows?: boolean
 }
 
 class BaseContract {
@@ -34,7 +36,8 @@ class BaseContract {
     key_type,
     index_position,
     parseMetaAsJson,
-  }: TableRowsArgs) {
+    getAllRows,
+  }: TableRowsArgs, prependResult?: ReturnType[]): Promise<TableResult<ReturnType>> {
     const result = await this.api.getTableRows<ReturnType>(
       this.name,
       scope || this.name,
@@ -69,7 +72,28 @@ class BaseContract {
       }
     }
 
-    return result
+    if (!getAllRows || !result.more || !result.next_key) {
+      if (!prependResult) {
+        return result
+      }
+      return {
+        ...result,
+        rows: [...prependResult, ...result.rows],
+      }
+    }
+
+    return this.getTableRows<ReturnType>({
+      scope,
+      table,
+      table_key,
+      lower_bound: result.next_key,
+      upper_bound,
+      limit,
+      key_type,
+      index_position,
+      parseMetaAsJson,
+      getAllRows,
+    }, result.rows)
   }
 
   async getSingleTableRow<ReturnType>(args: TableRowsArgs) {

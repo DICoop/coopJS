@@ -64,4 +64,5 @@ export interface AccountStats {
 export interface TableResult<RowType = any> {
   rows: RowType[]
   more?: boolean
+  next_key?: number | string
 }
