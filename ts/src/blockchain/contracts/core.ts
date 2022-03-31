@@ -35,6 +35,28 @@ interface MarketData {
   if_user_sell_all?: string // generated property
 }
 
+interface ReportsData {
+  approved: number
+  balance: string
+  comment: string
+  count: number
+  created_at: string
+  curator: string
+  data: string
+  distributed: number
+  expired_at: string
+  goal_id: string
+  need_check: number
+  report_id: number
+  requested: string
+  status: string
+  task_id: string
+  total_votes: number
+  type: number
+  username: string
+  voters: any[]
+}
+
 class CoreContract extends BaseContract {
   constructor(api: ReadApi, tableCodeConfig: TableCodeConfig) {
     super(api, tableCodeConfig, 'core')
@@ -88,6 +110,19 @@ class CoreContract extends BaseContract {
     }
 
     return market
+  }
+
+  getReports(username: string) {
+    return this.getTableRows<ReportsData>({
+      table: 'reports3',
+      scope: 'core',
+      lower_bound: username,
+      upper_bound: username,
+      limit: 100,
+      index_position: 4,
+      key_type: 'i64',
+      getAllRows: true,
+    })
   }
 }
 
