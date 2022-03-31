@@ -35,7 +35,7 @@ interface MarketData {
   if_user_sell_all?: string // generated property
 }
 
-interface ReportsData {
+interface ReportData {
   approved: number
   balance: string
   comment: string
@@ -55,6 +55,72 @@ interface ReportsData {
   type: number
   username: string
   voters: any[]
+}
+
+interface TaskData {
+  active: number
+  badge_id: number
+  batch: any[]
+  benefactor: string
+  calendar: any[]
+  completed: number
+  created_at: string
+  creator: string
+  curator: string
+  data: string
+  doer: string
+  duration: number
+  expired_at: string
+  for_each: string
+  funded: string
+  gifted_badges: number
+  gifted_power: number
+  goal_id: string
+  host: string
+  is_batch: number
+  is_encrypted: number
+  is_public: number
+  is_regular: number
+  level: number
+  meta: any
+  parent_batch_id: number
+  permlink: string
+  priority: number
+  public_key: string
+  remain: string
+  reports_count: number
+  requested: string
+  role: string
+  start_at: string
+  status: string
+  suggester: string
+  task_id: string
+  title: string
+  total_votes: number
+  type: string
+  validated: number
+  voters: any[]
+  with_badge: number
+}
+
+interface BadgeData {
+  caption: string
+  description: string
+  id: number
+  iurl: string
+  pic: string
+  power: number
+  remain: number
+  total: number
+}
+
+interface TaskDataResult extends TaskData {
+  reports: ReportData[]
+  user_reports: ReportData[]
+  no_reports_on_check: boolean
+  has_report: boolean
+  report_approved: boolean
+  badge?: BadgeData
 }
 
 class CoreContract extends BaseContract {
@@ -113,7 +179,7 @@ class CoreContract extends BaseContract {
   }
 
   getReports(username: string) {
-    return this.getTableRows<ReportsData>({
+    return this.getTableRows<ReportData>({
       table: 'reports3',
       scope: 'core',
       lower_bound: username,
@@ -122,7 +188,66 @@ class CoreContract extends BaseContract {
       index_position: 4,
       key_type: 'i64',
       getAllRows: true,
-    })
+    }).then(result => result.rows)
+  }
+
+  getTasksRaw() {
+    return this.getTableRows<TaskData>({
+      table: 'tasks',
+      scope: 'core',
+      lower_bound: 0,
+      limit: 100,
+      getAllRows: true,
+      parseMetaAsJson: true,
+    }).then(result => result.rows)
+  }
+
+  getBadgesRaw() {
+    return this.getTableRows<BadgeData>({
+      table: 'badges',
+      scope: 'core',
+      lower_bound: 0,
+      limit: 100,
+      getAllRows: true,
+    }).then(result => result.rows)
+  }
+
+  async getTasks(username: string, reports: ReportData[]) {
+    const tasks = await this.getTasksRaw()
+    const badges = await this.getBadgesRaw()
+
+    const result: TaskDataResult[] = []
+
+    for (const task of tasks) {
+      if (task.validated !== 1) {
+        continue
+      }
+
+      const taskReports = reports.filter(report => report.task_id === task.task_id)
+      const userReports = taskReports.filter(report => report.username === username)
+
+      if (userReports.length > 0) {
+        continue
+      }
+
+      const no_reports_on_check = taskReports.every(report => !report.need_check && report.approved)
+
+      const badge = task.with_badge ? badges.find(b=> task.badge_id == b.id) : undefined
+
+      const taskResult: TaskDataResult = {
+        ...task,
+        no_reports_on_check,
+        has_report: false,
+        report_approved: false,
+        badge,
+        reports: taskReports,
+        user_reports: userReports,
+      }
+
+      result.push(taskResult)
+    }
+
+    return result
   }
 }
 
