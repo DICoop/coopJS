@@ -7,7 +7,7 @@ class BaseContract {
         // @ts-ignore
         this.name = tableCodeConfig[name] || name;
     }
-    async getTableRows({ scope, table, table_key, lower_bound, upper_bound, limit, key_type, index_position, parseMetaAsJson, }) {
+    async getTableRows({ scope, table, table_key, lower_bound, upper_bound, limit, key_type, index_position, parseMetaAsJson, getAllRows, }, prependResult) {
         const result = await this.api.getTableRows(this.name, scope || this.name, table, table_key, lower_bound, upper_bound, limit, key_type, index_position);
         if (parseMetaAsJson && result.rows) {
             for (const row of result.rows) {
@@ -32,7 +32,27 @@ class BaseContract {
                 }
             }
         }
-        return result;
+        if (!getAllRows || !result.more || !result.next_key) {
+            if (!prependResult) {
+                return result;
+            }
+            return {
+                ...result,
+                rows: [...prependResult, ...result.rows],
+            };
+        }
+        return this.getTableRows({
+            scope,
+            table,
+            table_key,
+            lower_bound: result.next_key,
+            upper_bound,
+            limit,
+            key_type,
+            index_position,
+            parseMetaAsJson,
+            getAllRows,
+        }, result.rows);
     }
     async getSingleTableRow(args) {
         const result = await this.getTableRows(args);
