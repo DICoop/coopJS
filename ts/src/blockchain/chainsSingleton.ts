@@ -3,7 +3,6 @@ import ono from '@jsdevtools/ono'
 import Chain from './chain'
 import { Config } from './types'
 import { UnknownChainError, ChainsIsNotInitializedError } from './errors'
-import BaseContract from "./contracts/base";
 
 interface ChainsByName {
   [key: string]: Chain
