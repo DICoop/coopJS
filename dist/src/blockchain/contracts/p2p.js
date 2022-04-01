@@ -8,13 +8,20 @@ class P2PContract extends base_1.default {
     constructor(api, tableCodeConfig) {
         super(api, tableCodeConfig, 'p2p');
     }
-    async getOrders() {
-        const { rows } = await this.getTableRows({
+    async getOrders(username) {
+        const q = {
             table: 'orders',
             lower_bound: 0,
             limit: 100,
             getAllRows: true,
-        });
+        };
+        if (username) {
+            q.lower_bound = username;
+            q.upper_bound = username;
+            q.index_position = 5;
+            q.key_type = 'i64';
+        }
+        const { rows } = await this.getTableRows(q);
         return rows.map(row => {
             const res = { ...row };
             try {

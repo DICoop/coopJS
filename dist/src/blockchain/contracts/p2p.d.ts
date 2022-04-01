@@ -10,7 +10,7 @@ interface UsdRatesData {
 }
 declare class P2PContract extends BaseContract {
     constructor(api: ReadApi, tableCodeConfig: TableCodeConfig);
-    getOrders(): Promise<{
+    getOrders(username?: string): Promise<{
         created_at: string;
         creator: string;
         curator: string;
