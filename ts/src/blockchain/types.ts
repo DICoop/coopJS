@@ -39,9 +39,3 @@ export interface Config {
   ual: UalConfig
   tableCodeConfig: TableCodeConfigStrict
 }
-
-export interface Host {
-  username: string
-  total_shares: number
-  quote_precision: number
-}

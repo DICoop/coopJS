@@ -1,5 +1,5 @@
 import ReadApi from '../readApi'
-import {Host, TableCodeConfig} from '../types'
+import {TableCodeConfig} from '../types'
 import BaseContract from './base'
 
 interface UserPowerData {
@@ -123,6 +123,70 @@ interface TaskDataResult extends TaskData {
   badge?: BadgeData
 }
 
+
+interface HostData {
+  achieved_goals: number
+  activated: number
+  ahost: string
+  approved_reports: number
+  architect: string
+  asset_on_sale: string
+  asset_on_sale_precision: number
+  asset_on_sale_symbol: string
+  cfund_percent: number
+  chat_mode: string
+  chosts: any[]
+  completed_tasks: number
+  consensus_percent: number
+  current_cycle_num: number
+  current_pool_id: number
+  current_pool_num: number
+  cycle_start_id: number
+  dac_mode: number
+  dacs_percent: number
+  direct_goal_withdraw: number
+  fhosts: any[]
+  fhosts_mode: number
+  gsponsor_model: any[]
+  hfund_percent: number
+  hoperator: string
+  levels: number[]
+  meta: string
+  need_switch: number
+  non_active_chost: number
+  parameters_setted: number
+  payed: number
+  power_market_id: string
+  precision: number
+  priority_flag: number
+  purpose: string
+  quote_amount: string
+  quote_precision: number
+  quote_symbol: string
+  quote_token_contract: string
+  referral_percent: number
+  registered_at: string
+  root_token: string
+  root_token_contract: string
+  sale_is_enabled: number
+  sale_mode: string
+  sale_shift: number
+  sale_token_contract: string
+  symbol: string
+  sys_percent: number
+  title: string
+  to_pay: string
+  total_dacs_weight: number
+  total_goals: number
+  total_reports: number
+  total_shares: number
+  total_tasks: number
+  type: string
+  username: string
+  voting_only_up: number
+}
+
+
 class CoreContract extends BaseContract {
   constructor(api: ReadApi, tableCodeConfig: TableCodeConfig) {
     super(api, tableCodeConfig, 'core')
@@ -147,7 +211,7 @@ class CoreContract extends BaseContract {
     }
   }
 
-  async getMarket(host: Host, userPower: UserPowerData) {
+  async getMarket(host: HostData, userPower: UserPowerData) {
     const market = await this.getSingleTableRow<MarketData>({
       table: 'powermarket',
       scope: host.username,
@@ -248,6 +312,14 @@ class CoreContract extends BaseContract {
     }
 
     return result
+  }
+
+  getHost(hostname: string) {
+    return this.getSingleTableRow<HostData>({
+      scope: hostname,
+      table: 'hosts',
+      lower_bound: 0
+    })
   }
 }
 
