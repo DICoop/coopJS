@@ -1,6 +1,6 @@
 import ReadApi from '../readApi'
 import { TableCodeConfig } from '../types'
-import BaseContract from './base'
+import BaseContract, {TableRowsArgs} from './base'
 
 interface OrdersData {
   created_at: string
@@ -55,13 +55,20 @@ class P2PContract extends BaseContract {
     super(api, tableCodeConfig, 'p2p')
   }
 
-  async getOrders() {
-    const {rows} = await this.getTableRows<OrdersData>({
+  async getOrders(username?: string) {
+    const q: TableRowsArgs = {
       table: 'orders',
       lower_bound: 0,
       limit: 100,
       getAllRows: true,
-    })
+    }
+    if (username) {
+      q.lower_bound = username
+      q.upper_bound = username
+      q.index_position = 5
+      q.key_type = 'i64'
+    }
+    const {rows} = await this.getTableRows<OrdersData>(q)
 
     return rows.map(row => {
       const res = {...row}

@@ -2,7 +2,7 @@ import ReadApi from '../readApi'
 import { TableCodeConfig } from '../types'
 import {TableResult} from "../../eos/types";
 
-interface TableRowsArgs {
+export interface TableRowsArgs {
   scope?: string
   table: string
   table_key?: string
