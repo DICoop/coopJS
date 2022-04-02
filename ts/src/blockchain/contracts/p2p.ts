@@ -55,7 +55,7 @@ class P2PContract extends BaseContract {
     super(api, tableCodeConfig, 'p2p')
   }
 
-  async getOrders(username?: string) {
+  async getOrders(username?: string, parent_id?: number | string) {
     const q: TableRowsArgs = {
       table: 'orders',
       lower_bound: 0,
@@ -66,6 +66,11 @@ class P2PContract extends BaseContract {
       q.lower_bound = username
       q.upper_bound = username
       q.index_position = 5
+      q.key_type = 'i64'
+    } else if (parent_id) {
+      q.lower_bound = parent_id
+      q.upper_bound = parent_id
+      q.index_position = 3
       q.key_type = 'i64'
     }
     const {rows} = await this.getTableRows<OrdersData>(q)
