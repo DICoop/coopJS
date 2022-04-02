@@ -55,24 +55,28 @@ class P2PContract extends BaseContract {
     super(api, tableCodeConfig, 'p2p')
   }
 
-  async getOrders(username?: string, parent_id?: number | string) {
+  async getOrders(username?: string, parent_id?: number | string, order_id?: number | string): Promise<OrdersData[]> {
     const q: TableRowsArgs = {
       table: 'orders',
       lower_bound: 0,
       limit: 100,
       getAllRows: true,
     }
-    if (username) {
+    if (typeof username !== 'undefined') {
       q.lower_bound = username
       q.upper_bound = username
       q.index_position = 5
       q.key_type = 'i64'
-    } else if (parent_id) {
+    } else if (typeof parent_id !== 'undefined') {
       q.lower_bound = parent_id
       q.upper_bound = parent_id
       q.index_position = 3
       q.key_type = 'i64'
+    } else if (typeof order_id !== 'undefined') {
+      q.lower_bound = order_id
+      q.upper_bound = order_id
     }
+
     const {rows} = await this.getTableRows<OrdersData>(q)
 
     return rows.map(row => {
@@ -87,6 +91,12 @@ class P2PContract extends BaseContract {
 
       return res
     })
+  }
+
+  async getOrder(order_id: number) {
+    const [order] = await this.getOrders(undefined, undefined, order_id)
+
+    return order
   }
 
   getUSDRates() {
