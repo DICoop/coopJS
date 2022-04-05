@@ -38,3 +38,4 @@ declare module 'eosjs-api' {
 
 declare module 'eosjs-ecc'
 declare module 'bip39'
+declare module 'wif'

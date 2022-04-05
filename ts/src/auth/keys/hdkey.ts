@@ -11,3 +11,5 @@ export const seedToHd = (seed: string | Buffer) => {
 export const hdToFirstHdNode = (hd: hdkey) => hd.derive("m/44'/194'/0'/0/0")
 
 export const hdNodeToPublicKeyBuffer = (hd: hdkey) => hd.publicKey
+
+export const hdNodeToPrivateKeyBuffer = (hd: hdkey) => hd.privateKey
