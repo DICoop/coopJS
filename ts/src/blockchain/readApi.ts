@@ -4,15 +4,22 @@ import ono from '@jsdevtools/ono'
 import { RpcEndpoint, BalancingMode } from './types'
 import { RpcEndpointsEmptyError } from './errors'
 
+interface BalancingResult<T> {
+  result: T,
+  offset: number,
+}
+
 class ReadApi {
   private readonly balancingMode: BalancingMode
   private readonly apis: EosApi[]
+  private readonly endpoints: string[]
   private offset: number
 
   constructor(chainName: string, apiConfigs: RpcEndpoint[], balancingMode?: BalancingMode) {
     this.offset = 0
     this.balancingMode = balancingMode || 'random-once'
     this.apis = []
+    this.endpoints = []
 
     if (!apiConfigs || apiConfigs.length === 0) {
       throw ono(new RpcEndpointsEmptyError(`rpcEndpoints is empty (chain=${chainName})`))
@@ -20,6 +27,7 @@ class ReadApi {
 
     for (const { protocol, host, port } of apiConfigs) {
       const rpcEndpointString = `${protocol}://${host}:${port}`
+      this.endpoints.push(rpcEndpointString)
       this.apis.push(new EosApi({ httpEndpoint: rpcEndpointString }))
     }
 
@@ -28,27 +36,52 @@ class ReadApi {
     }
   }
 
-  getInstance(): EosApi {
-    if (this.apis.length < 2) {
-      return this.apis[0]
-    }
-
-    let offset = this.offset
-    if (this.balancingMode === 'random') {
-      offset = Math.floor(Math.random() * this.apis.length)
-    }
-
-    const api = this.apis[offset]
-
-    if (this.balancingMode === 'round-robin') {
-      this.offset++
-
-      if (this.offset >= this.apis.length) {
-        this.offset = 0
+  getBalancedItemByOffset<T>(currentOffset: number, items: T[], balancingMode: BalancingMode): BalancingResult<T> {
+    if (items.length < 2) {
+      return {
+        result: items[0],
+        offset: 0,
       }
     }
 
-    return api
+    let nextOffset = currentOffset
+    if (balancingMode === 'random') {
+      nextOffset = Math.floor(Math.random() * items.length)
+    }
+
+    const instance = items[nextOffset]
+
+    if (balancingMode === 'round-robin') {
+      nextOffset++
+
+      if (nextOffset >= items.length) {
+        nextOffset = 0
+      }
+    }
+
+    return {
+      result: instance,
+      offset: nextOffset,
+    }
+  }
+
+  getBalancedItem<T>(collection: T[]): T {
+    const {
+      result,
+      offset,
+    } = this.getBalancedItemByOffset<T>(this.offset, collection, this.balancingMode)
+
+    this.offset = offset
+
+    return result
+  }
+
+  getInstance(): EosApi {
+    return this.getBalancedItem<EosApi>(this.apis)
+  }
+
+  getEndpoint(): string {
+    return this.getBalancedItem<string>(this.endpoints)
   }
 
   getKeyAccounts: EosApi['getKeyAccounts'] = (...args) => {

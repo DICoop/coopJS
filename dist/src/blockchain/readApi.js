@@ -16,6 +16,10 @@ class ReadApi {
             const instance = this.getInstance();
             return instance.getAccount(...args);
         };
+        this.getCurrencyBalance = (...args) => {
+            const instance = this.getInstance();
+            return instance.getCurrencyBalance(...args);
+        };
         this.offset = 0;
         this.balancingMode = balancingMode || 'random-once';
         this.apis = [];
@@ -46,6 +50,10 @@ class ReadApi {
             }
         }
         return api;
+    }
+    async getUserBalance(account, symbol) {
+        const [balance] = await this.getCurrencyBalance("eosio.token", account, symbol);
+        return `${(Number(balance || 0) || 0).toFixed(4)} ${symbol}`;
     }
     getTableRows(code, scope, table, table_key, lower_bound, upper_bound, limit, key_type, index_position) {
         const instance = this.getInstance();
