@@ -23,33 +23,52 @@ class ReadApi {
         this.offset = 0;
         this.balancingMode = balancingMode || 'random-once';
         this.apis = [];
+        this.endpoints = [];
         if (!apiConfigs || apiConfigs.length === 0) {
             throw (0, ono_1.default)(new errors_1.RpcEndpointsEmptyError(`rpcEndpoints is empty (chain=${chainName})`));
         }
         for (const { protocol, host, port } of apiConfigs) {
             const rpcEndpointString = `${protocol}://${host}:${port}`;
+            this.endpoints.push(rpcEndpointString);
             this.apis.push(new eosjs_api_1.default({ httpEndpoint: rpcEndpointString }));
         }
         if (this.balancingMode === 'random-once' && this.apis.length > 1) {
             this.offset = Math.floor(Math.random() * this.apis.length);
         }
     }
-    getInstance() {
-        if (this.apis.length < 2) {
-            return this.apis[0];
+    getBalancedItemByOffset(currentOffset, items, balancingMode) {
+        if (items.length < 2) {
+            return {
+                result: items[0],
+                offset: 0,
+            };
         }
-        let offset = this.offset;
-        if (this.balancingMode === 'random') {
-            offset = Math.floor(Math.random() * this.apis.length);
+        let nextOffset = currentOffset;
+        if (balancingMode === 'random') {
+            nextOffset = Math.floor(Math.random() * items.length);
         }
-        const api = this.apis[offset];
-        if (this.balancingMode === 'round-robin') {
-            this.offset++;
-            if (this.offset >= this.apis.length) {
-                this.offset = 0;
+        const instance = items[nextOffset];
+        if (balancingMode === 'round-robin') {
+            nextOffset++;
+            if (nextOffset >= items.length) {
+                nextOffset = 0;
             }
         }
-        return api;
+        return {
+            result: instance,
+            offset: nextOffset,
+        };
+    }
+    getBalancedItem(collection) {
+        const { result, offset, } = this.getBalancedItemByOffset(this.offset, collection, this.balancingMode);
+        this.offset = offset;
+        return result;
+    }
+    getInstance() {
+        return this.getBalancedItem(this.apis);
+    }
+    getEndpoint() {
+        return this.getBalancedItem(this.endpoints);
     }
     async getUserBalance(account, symbol) {
         const [balance] = await this.getCurrencyBalance("eosio.token", account, symbol);

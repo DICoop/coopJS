@@ -1,3 +1,4 @@
+import { Api } from 'eosjs';
 import EosioContract from './contracts/eosio';
 import CoreContract from './contracts/core';
 import PartnersContract from './contracts/partners';
@@ -9,6 +10,7 @@ declare class Chain {
     private readonly name;
     readApi: ReadApi;
     private readonly tableCodeConfig;
+    private readonly rpcByEndpoint;
     eosioContract: EosioContract;
     coreContract: CoreContract;
     partnersContract: PartnersContract;
@@ -17,5 +19,6 @@ declare class Chain {
     applyContract<T extends BaseContract>(contract: {
         new (...args: any[]): T;
     }): T;
+    getEosPassInstance(wif: string): Api;
 }
 export default Chain;
