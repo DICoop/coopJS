@@ -1,3 +1,4 @@
+import EosApi from "eosjs-api";
 import EosioContract from './contracts/eosio'
 import CoreContract from './contracts/core'
 import PartnersContract from './contracts/partners'

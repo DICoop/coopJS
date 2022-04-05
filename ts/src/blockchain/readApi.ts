@@ -63,6 +63,18 @@ class ReadApi {
     return instance.getAccount(...args)
   }
 
+  getCurrencyBalance: EosApi['getCurrencyBalance'] = (...args) => {
+    const instance = this.getInstance()
+
+    return instance.getCurrencyBalance(...args)
+  }
+
+  async getUserBalance(account: string, symbol: string) {
+    const [balance] = await this.getCurrencyBalance("eosio.token", account, symbol)
+
+    return `${(Number(balance || 0) || 0).toFixed(4)} ${symbol}`
+  }
+
   getTableRows<RowType>(
     code: string,
     scope: string,
