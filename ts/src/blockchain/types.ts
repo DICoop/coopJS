@@ -1,3 +1,5 @@
+import { SignatureProvider } from "eosjs/dist/eosjs-api-interfaces";
+
 export type BalancingMode = 'round-robin' | 'random-once' | 'random'
 
 export interface RpcEndpoint {
@@ -22,12 +24,15 @@ export interface TableCodeConfigStrict {
   part: string
 }
 
+export type AuthKeyType = 'plain-auth-key' | 'auth-key-search-callback'
+
 export interface ChainConfig {
   name: string
   rpcEndpoints: RpcEndpoint[]
   balancingMode?: BalancingMode
   explorerApiUrl: string
   tableCodeConfigOverride?: TableCodeConfig
+  authKeyType?: AuthKeyType
 }
 
 export interface UalConfig {
@@ -39,3 +44,7 @@ export interface Config {
   ual: UalConfig
   tableCodeConfig: TableCodeConfigStrict
 }
+
+export type AuthKeySearchCallback = (authKeyQuery: string) => Promise<string>
+
+export type SignatureProviderMaker = (authKey: string) => Promise<SignatureProvider>

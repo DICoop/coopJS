@@ -1,7 +1,7 @@
 import ono from '@jsdevtools/ono'
 
 import Chain from './chain'
-import { Config } from './types'
+import {Config, SignatureProviderMaker, AuthKeySearchCallback} from './types'
 import { UnknownChainError, ChainsIsNotInitializedError } from './errors'
 
 interface ChainsByName {
@@ -19,13 +19,22 @@ class ChainsSingleton {
     this.rootChain = 'unknown'
   }
 
-  init(config: Config) {
+  init(
+      config: Config,
+      authKeySearchCallback?: AuthKeySearchCallback,
+      signatureProviderMaker?: SignatureProviderMaker,
+    ) {
     if (this.initialized) {
       return
     }
 
     for (const chain of config.chains) {
-      this.chainsByName[chain.name] = new Chain(chain, config.tableCodeConfig)
+      this.chainsByName[chain.name] = new Chain(
+          chain,
+          config.tableCodeConfig,
+          authKeySearchCallback,
+          signatureProviderMaker
+      )
     }
 
     this.rootChain = config.ual.rootChain
