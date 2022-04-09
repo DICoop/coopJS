@@ -4,3 +4,5 @@ export declare class UnknownChainError extends Error {
 }
 export declare class ChainsIsNotInitializedError extends Error {
 }
+export declare class NotImplementedError extends Error {
+}
