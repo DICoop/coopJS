@@ -45,6 +45,6 @@ export interface Config {
   tableCodeConfig: TableCodeConfigStrict
 }
 
-export type AuthKeySearchCallback = (authKeyQuery: string) => Promise<string>
+export type AuthKeySearchCallback = (authKeyQuery: string) => Promise<string | null>
 
 export type SignatureProviderMaker = (authKey: string) => Promise<SignatureProvider>

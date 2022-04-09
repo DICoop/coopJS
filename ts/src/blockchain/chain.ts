@@ -120,6 +120,10 @@ class Chain {
       }
       const wif = await this.authKeySearchCallback(authKey)
 
+      if (!wif) {
+        throw ono(new Error('WIF cannot be empty'))
+      }
+
       return this.transactByAuthKey(wif, transaction, config)
     }
 
