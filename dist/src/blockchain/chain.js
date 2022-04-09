@@ -74,6 +74,9 @@ class Chain {
                 throw (0, ono_1.default)(new Error('For authKeyType=wif-search-callback wifSearchCallback need to define'));
             }
             const wif = await this.authKeySearchCallback(authKey);
+            if (!wif) {
+                throw (0, ono_1.default)(new Error('WIF cannot be empty'));
+            }
             return this.transactByAuthKey(wif, transaction, config);
         }
         throw (0, ono_1.default)(new errors_1.NotImplementedError('Not implemented authKeyType'));

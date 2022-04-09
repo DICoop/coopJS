@@ -36,5 +36,5 @@ export interface Config {
     ual: UalConfig;
     tableCodeConfig: TableCodeConfigStrict;
 }
-export declare type AuthKeySearchCallback = (authKeyQuery: string) => Promise<string>;
+export declare type AuthKeySearchCallback = (authKeyQuery: string) => Promise<string | null>;
 export declare type SignatureProviderMaker = (authKey: string) => Promise<SignatureProvider>;
