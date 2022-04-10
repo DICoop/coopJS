@@ -74,6 +74,11 @@ class ReadApi {
         const [balance] = await this.getCurrencyBalance("eosio.token", account, symbol);
         return `${(Number(balance || 0) || 0).toFixed(4)} ${symbol}`;
     }
+    async getPermissionKeyByName(accountName, name) {
+        const account = await this.getAccount(accountName);
+        const permission = account.permissions.find(el => el.perm_name === name);
+        return permission === null || permission === void 0 ? void 0 : permission.required_auth.keys[0].key;
+    }
     getTableRows(code, scope, table, table_key, lower_bound, upper_bound, limit, key_type, index_position) {
         const instance = this.getInstance();
         return instance.getTableRows(true, code, scope, table, table_key, lower_bound, upper_bound, limit, key_type, index_position);

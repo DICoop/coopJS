@@ -1,11 +1,11 @@
 import { Api, JsonRpc } from 'eosjs';
-import { Transaction, TransactConfig, TransactResult, SignatureProvider } from 'eosjs/dist/eosjs-api-interfaces';
+import { SignatureProvider, TransactConfig, Transaction, TransactResult } from 'eosjs/dist/eosjs-api-interfaces';
 import { PushTransactionArgs, ReadOnlyTransactResult } from 'eosjs/dist/eosjs-rpc-interfaces';
 import EosioContract from './contracts/eosio';
 import CoreContract from './contracts/core';
 import PartnersContract from './contracts/partners';
 import P2PContract from './contracts/p2p';
-import { AuthKeyType, ChainConfig, SignatureProviderMaker, TableCodeConfig, AuthKeySearchCallback } from './types';
+import { AuthKeySearchCallback, AuthKeyType, ChainConfig, ChainCrypt, SignatureProviderMaker, TableCodeConfig } from './types';
 import ReadApi from './readApi';
 import BaseContract from "./contracts/base";
 declare class Chain {
@@ -16,11 +16,12 @@ declare class Chain {
     private readonly authKeyType;
     private readonly authKeySearchCallback?;
     private readonly signatureProviderMaker;
+    private readonly chainCrypt;
     eosioContract: EosioContract;
     coreContract: CoreContract;
     partnersContract: PartnersContract;
     p2pContract: P2PContract;
-    constructor(chainConfig: ChainConfig, tableCodeConfig: TableCodeConfig, authKeySearchCallback?: AuthKeySearchCallback, signatureProviderMaker?: SignatureProviderMaker);
+    constructor(chainConfig: ChainConfig, tableCodeConfig: TableCodeConfig, authKeySearchCallback?: AuthKeySearchCallback, signatureProviderMaker?: SignatureProviderMaker, chainCrypt?: ChainCrypt);
     applyContract<T extends BaseContract>(contract: {
         new (...args: any[]): T;
     }): T;
@@ -31,7 +32,10 @@ declare class Chain {
      */
     getEosPassInstance(wif: string): Api;
     makeEosInstance(authKey: string): Promise<Api>;
+    getAuthKey(authKeyQuery: string, authKeyType?: AuthKeyType): string | Promise<string | null>;
     transactByAuthKey(authKey: string, transaction: Transaction, config?: TransactConfig): Promise<TransactResult | ReadOnlyTransactResult | PushTransactionArgs>;
-    transact(authKey: string, transaction: Transaction, config?: TransactConfig, authKeyType?: AuthKeyType): Promise<TransactResult | ReadOnlyTransactResult | PushTransactionArgs>;
+    transact(authKeyQuery: string, transaction: Transaction, config?: TransactConfig, authKeyType?: AuthKeyType): Promise<TransactResult | ReadOnlyTransactResult | PushTransactionArgs>;
+    encryptMessage(authKeyQuery: string, publicKey: string, message: string, memo?: string, authKeyType?: AuthKeyType): Promise<string>;
+    decryptMessage(authKeyQuery: string, publicKey: string, message: string, memo?: string, authKeyType?: AuthKeyType): Promise<string>;
 }
 export default Chain;

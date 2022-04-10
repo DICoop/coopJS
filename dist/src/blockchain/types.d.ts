@@ -38,3 +38,7 @@ export interface Config {
 }
 export declare type AuthKeySearchCallback = (authKeyQuery: string) => Promise<string | null>;
 export declare type SignatureProviderMaker = (authKey: string) => Promise<SignatureProvider>;
+export interface ChainCrypt {
+    encrypt(authKey: string, publicKey: string, message: string, memo?: string): Promise<string>;
+    decrypt(authKey: string, publicKey: string, message: string, memo?: string): Promise<string>;
+}

@@ -36,7 +36,23 @@ declare module 'eosjs-api' {
   export default EosApi
 }
 
-declare module 'eosjs-ecc'
+declare module "eosjs-ecc" {
+  import Long from "long";
+
+  export interface Crypt {
+    nonce: Long;
+    message: Buffer;
+    checksum: Buffer | string;
+  }
+
+  export function PublicKey(arg: any): any;
+
+  module Aes {
+    export function decrypt(private_key: string, public_key: string, nonce: Long, message: string | Buffer, checksum: number): Buffer
+
+    export function encrypt(private_key: string, public_key: string, message: string| Buffer, nonce?: string): Crypt
+  }
+}
 declare module 'bip39'
 declare module 'wif'
 declare module 'core-js-pure/stable/escape'

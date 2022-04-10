@@ -12,12 +12,12 @@ class ChainsSingleton {
         this.initialized = false;
         this.rootChain = 'unknown';
     }
-    init(config, authKeySearchCallback, signatureProviderMaker) {
+    init(config, authKeySearchCallback, signatureProviderMaker, chainCrypt) {
         if (this.initialized) {
             return;
         }
         for (const chain of config.chains) {
-            this.chainsByName[chain.name] = new chain_1.default(chain, config.tableCodeConfig, authKeySearchCallback, signatureProviderMaker);
+            this.chainsByName[chain.name] = new chain_1.default(chain, config.tableCodeConfig, authKeySearchCallback, signatureProviderMaker, chainCrypt);
         }
         this.rootChain = config.ual.rootChain;
         this.initialized = true;
