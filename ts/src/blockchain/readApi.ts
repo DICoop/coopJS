@@ -108,6 +108,13 @@ class ReadApi {
     return `${(Number(balance || 0) || 0).toFixed(4)} ${symbol}`
   }
 
+  async getPermissionKeyByName(accountName: string, name: string) {
+    const account = await this.getAccount(accountName);
+    const permission = account.permissions.find(el => el.perm_name === name)
+
+    return permission?.required_auth.keys[0].key
+  }
+
   getTableRows<RowType>(
     code: string,
     scope: string,

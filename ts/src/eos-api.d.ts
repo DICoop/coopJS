@@ -39,3 +39,5 @@ declare module 'eosjs-api' {
 declare module 'eosjs-ecc'
 declare module 'bip39'
 declare module 'wif'
+declare module 'core-js-pure/stable/escape'
+declare module 'core-js-pure/stable/unescape'

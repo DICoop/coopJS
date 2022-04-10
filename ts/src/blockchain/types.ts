@@ -48,3 +48,8 @@ export interface Config {
 export type AuthKeySearchCallback = (authKeyQuery: string) => Promise<string | null>
 
 export type SignatureProviderMaker = (authKey: string) => Promise<SignatureProvider>
+
+export interface ChainCrypt {
+  encrypt(authKey: string, publicKey: string, message: string, memo?: string): Promise<string>
+  decrypt(authKey: string, publicKey: string, message: string, memo?: string): Promise<string>
+}
