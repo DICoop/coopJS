@@ -11,7 +11,7 @@
     "test": "mocha --ui qunit",
     "testall": "mocha --ui qunit dist/test",
     "prepack": "npm run clean && npm run build",
-    "release": "yarn prepack && git commit -a -m 'dist' && release-it"
+    "release": "yarn prepack && git add . && git commit -a -m 'dist' && release-it"
   },
   "license": "UNLICENSE",
   "private": true,
