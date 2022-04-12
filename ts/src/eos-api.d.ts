@@ -16,7 +16,7 @@ declare module 'eosjs-api' {
 
     getAccount(accountName: AccountName): Promise<AccountStats>
 
-    getCurrencyBalance(code: string, account: AccountName, symbol?: string): Promise<number[]>
+    getCurrencyBalance(code: string, account: AccountName, symbol?: string): Promise<string[]>
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getTableRows<RowType = any>(
