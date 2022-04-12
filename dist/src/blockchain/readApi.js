@@ -72,7 +72,7 @@ class ReadApi {
     }
     async getUserBalance(account, symbol) {
         const [balance] = await this.getCurrencyBalance("eosio.token", account, symbol);
-        return `${(Number(balance || 0) || 0).toFixed(4)} ${symbol}`;
+        return `${(parseFloat(balance || '0') || 0).toFixed(4)} ${symbol}`;
     }
     async getPermissionKeyByName(accountName, name) {
         const account = await this.getAccount(accountName);
