@@ -14,6 +14,7 @@ import EosioContract from './contracts/eosio'
 import CoreContract from './contracts/core'
 import PartnersContract from './contracts/partners'
 import P2PContract from './contracts/p2p'
+import NftContract from './contracts/nft'
 import {
   AuthKeySearchCallback,
   AuthKeyType,
@@ -47,6 +48,7 @@ class Chain {
   public coreContract: CoreContract
   public partnersContract: PartnersContract
   public p2pContract: P2PContract
+  public nftContract: NftContract
 
   constructor(
       chainConfig: ChainConfig,
@@ -68,6 +70,7 @@ class Chain {
     this.coreContract = this.applyContract(CoreContract)
     this.partnersContract = this.applyContract(PartnersContract)
     this.p2pContract = this.applyContract(P2PContract)
+    this.nftContract = this.applyContract(NftContract)
   }
 
   applyContract<T extends BaseContract>(contract: { new(...args: any[]): T ;}): T {

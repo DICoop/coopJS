@@ -12,6 +12,7 @@ export interface TableRowsArgs {
   key_type?: string
   index_position?: number
   parseMetaAsJson?: boolean
+  parseKeysAsJson?: string[],
   getAllRows?: boolean
 }
 
@@ -36,8 +37,14 @@ class BaseContract {
     key_type,
     index_position,
     parseMetaAsJson,
+    parseKeysAsJson,
     getAllRows,
   }: TableRowsArgs, prependResult?: ReturnType[]): Promise<TableResult<ReturnType>> {
+    const keysAsJson = parseKeysAsJson || [];
+    if (parseMetaAsJson) {
+      keysAsJson.push('meta');
+    }
+
     const result = await this.api.getTableRows<ReturnType>(
       this.name,
       scope || this.name,
@@ -50,23 +57,25 @@ class BaseContract {
       index_position
     )
 
-    if (parseMetaAsJson && result.rows) {
+    if (keysAsJson.length > 0 && result.rows) {
       for (const row of result.rows) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        if (!row.meta) {
+        for (const keyAsJson of keysAsJson) {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          row.meta = {}
-        } else {
-          try {
+          if (!row[keyAsJson]) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            row.meta = JSON.parse(row.meta)
-          } catch (_) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            row.meta = {}
+            row[keyAsJson] = {}
+          } else {
+            try {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              row[keyAsJson] = JSON.parse(row[keyAsJson])
+            } catch (_) {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              row[keyAsJson] = {}
+            }
           }
         }
       }
@@ -92,6 +101,7 @@ class BaseContract {
       key_type,
       index_position,
       parseMetaAsJson,
+      parseKeysAsJson,
       getAllRows,
     }, result.rows)
   }
