@@ -7,27 +7,33 @@ class BaseContract {
         // @ts-ignore
         this.name = tableCodeConfig[name] || name;
     }
-    async getTableRows({ scope, table, table_key, lower_bound, upper_bound, limit, key_type, index_position, parseMetaAsJson, getAllRows, }, prependResult) {
+    async getTableRows({ scope, table, table_key, lower_bound, upper_bound, limit, key_type, index_position, parseMetaAsJson, parseKeysAsJson, getAllRows, }, prependResult) {
+        const keysAsJson = parseKeysAsJson || [];
+        if (parseMetaAsJson) {
+            keysAsJson.push('meta');
+        }
         const result = await this.api.getTableRows(this.name, scope || this.name, table, table_key, lower_bound, upper_bound, limit, key_type, index_position);
-        if (parseMetaAsJson && result.rows) {
+        if (keysAsJson.length > 0 && result.rows) {
             for (const row of result.rows) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                if (!row.meta) {
+                for (const keyAsJson of keysAsJson) {
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
-                    row.meta = {};
-                }
-                else {
-                    try {
+                    if (!row[keyAsJson]) {
                         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                         // @ts-ignore
-                        row.meta = JSON.parse(row.meta);
+                        row[keyAsJson] = {};
                     }
-                    catch (_) {
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
-                        row.meta = {};
+                    else {
+                        try {
+                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                            // @ts-ignore
+                            row[keyAsJson] = JSON.parse(row[keyAsJson]);
+                        }
+                        catch (_) {
+                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                            // @ts-ignore
+                            row[keyAsJson] = {};
+                        }
                     }
                 }
             }
@@ -51,6 +57,7 @@ class BaseContract {
             key_type,
             index_position,
             parseMetaAsJson,
+            parseKeysAsJson,
             getAllRows,
         }, result.rows);
     }

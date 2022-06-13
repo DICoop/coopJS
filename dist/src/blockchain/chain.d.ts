@@ -5,6 +5,7 @@ import EosioContract from './contracts/eosio';
 import CoreContract from './contracts/core';
 import PartnersContract from './contracts/partners';
 import P2PContract from './contracts/p2p';
+import NftContract from './contracts/nft';
 import { AuthKeySearchCallback, AuthKeyType, ChainConfig, ChainCrypt, SignatureProviderMaker, TableCodeConfig } from './types';
 import ReadApi from './readApi';
 import BaseContract from "./contracts/base";
@@ -21,6 +22,7 @@ declare class Chain {
     coreContract: CoreContract;
     partnersContract: PartnersContract;
     p2pContract: P2PContract;
+    nftContract: NftContract;
     constructor(chainConfig: ChainConfig, tableCodeConfig: TableCodeConfig, authKeySearchCallback?: AuthKeySearchCallback, signatureProviderMaker?: SignatureProviderMaker, chainCrypt?: ChainCrypt);
     applyContract<T extends BaseContract>(contract: {
         new (...args: any[]): T;

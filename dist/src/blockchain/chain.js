@@ -16,6 +16,7 @@ const eosio_1 = __importDefault(require("./contracts/eosio"));
 const core_1 = __importDefault(require("./contracts/core"));
 const partners_1 = __importDefault(require("./contracts/partners"));
 const p2p_1 = __importDefault(require("./contracts/p2p"));
+const nft_1 = __importDefault(require("./contracts/nft"));
 const readApi_1 = __importDefault(require("./readApi"));
 const errors_1 = require("./errors");
 const baseCrypt_1 = __importDefault(require("./baseCrypt"));
@@ -34,6 +35,7 @@ class Chain {
         this.coreContract = this.applyContract(core_1.default);
         this.partnersContract = this.applyContract(partners_1.default);
         this.p2pContract = this.applyContract(p2p_1.default);
+        this.nftContract = this.applyContract(nft_1.default);
     }
     applyContract(contract) {
         return new contract(this.readApi, this.tableCodeConfig);
