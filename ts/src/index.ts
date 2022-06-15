@@ -1,6 +1,7 @@
 export {
     makePublicKeyByMnemonic,
     generateAccount,
+    AccountData,
 } from './auth'
 
 export {default as ChainsSingleton} from './blockchain/chainsSingleton'

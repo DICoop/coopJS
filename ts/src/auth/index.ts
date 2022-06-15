@@ -19,7 +19,7 @@ export const makePublicKeyByMnemonic = async (mnemonic: string) => {
   return hdPublicToEccPublicKey(hdPublicKeyBuffer)
 }
 
-interface AccountData {
+export interface AccountData {
   name: string
   mnemonic: string
   wif: string
