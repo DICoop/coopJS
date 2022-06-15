@@ -6,3 +6,5 @@ export declare class ChainsIsNotInitializedError extends Error {
 }
 export declare class NotImplementedError extends Error {
 }
+export declare class RegistratorIsNotConfigured extends Error {
+}

@@ -31,10 +31,15 @@ export interface ChainConfig {
 export interface UalConfig {
     rootChain: string;
 }
+export interface RegistratorConfig {
+    api: string;
+    appName: string;
+}
 export interface Config {
     chains: ChainConfig[];
     ual: UalConfig;
     tableCodeConfig: TableCodeConfigStrict;
+    registrator?: RegistratorConfig;
 }
 export declare type AuthKeySearchCallback = (authKeyQuery: string) => Promise<string | null>;
 export declare type SignatureProviderMaker = (authKey: string) => Promise<SignatureProvider>;

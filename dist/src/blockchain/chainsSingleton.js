@@ -6,11 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ono_1 = __importDefault(require("@jsdevtools/ono"));
 const chain_1 = __importDefault(require("./chain"));
 const errors_1 = require("./errors");
+const registrator_1 = __importDefault(require("./registrator"));
 class ChainsSingleton {
     constructor() {
         this.chainsByName = {};
         this.initialized = false;
         this.rootChain = 'unknown';
+        this.registrator = new registrator_1.default(null);
     }
     init(config, authKeySearchCallback, signatureProviderMaker, chainCrypt) {
         if (this.initialized) {
@@ -20,6 +22,9 @@ class ChainsSingleton {
             this.chainsByName[chain.name] = new chain_1.default(chain, config.tableCodeConfig, authKeySearchCallback, signatureProviderMaker, chainCrypt);
         }
         this.rootChain = config.ual.rootChain;
+        if (config.registrator) {
+            this.registrator.setConfig(config.registrator);
+        }
         this.initialized = true;
     }
     checkChainsIsInitialized() {
