@@ -24,11 +24,14 @@ class Registrator {
     }
 
     post(path: string, data: any) {
-        return axios.post(this.getUrl(path), data).then(r => r.data)
+        return axios.post(this.getUrl(path), data, {headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}}).then(r => r.data)
     }
 
     get(path: string, params?: any) {
-        return axios.post(this.getUrl(path), params && {params}).then(r => r.data)
+        return axios.get(this.getUrl(path), {
+            params: params || {},
+            headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'},
+        }).then(r => r.data)
     }
 
     setAccount(username: AccountName, pub: string, ownerpub: string, email: string, referer: string | null, callback: string, accountType: string) {
