@@ -16,6 +16,7 @@ const hdToFirstHdNode = (hd) => hd.derive("m/44'/194'/0'/0/0");
 exports.hdToFirstHdNode = hdToFirstHdNode;
 const hdNodeToPublicKeyBuffer = (hd) => hd.publicKey;
 exports.hdNodeToPublicKeyBuffer = hdNodeToPublicKeyBuffer;
-const hdNodeToPrivateKeyBuffer = (hd) => hd.privateKey;
+// @ts-ignore
+const hdNodeToPrivateKeyBuffer = (hd) => hd.privateKey || hd._privateKey;
 exports.hdNodeToPrivateKeyBuffer = hdNodeToPrivateKeyBuffer;
 //# sourceMappingURL=hdkey.js.map
