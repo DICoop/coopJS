@@ -1,4 +1,4 @@
-export { makePublicKeyByMnemonic, generateAccount, AccountData, } from './auth';
+export { makePublicKeyByMnemonic, generateAccount, AccountData, makeAccountByMnemonic, makeAccountByWif, } from './auth';
 export { default as ChainsSingleton } from './blockchain/chainsSingleton';
 export { default as ReadApi } from './blockchain/readApi';
 export { TableCodeConfig } from './blockchain/types';

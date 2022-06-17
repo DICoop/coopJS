@@ -3,10 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseContract = exports.ReadApi = exports.ChainsSingleton = exports.generateAccount = exports.makePublicKeyByMnemonic = void 0;
+exports.BaseContract = exports.ReadApi = exports.ChainsSingleton = exports.makeAccountByWif = exports.makeAccountByMnemonic = exports.generateAccount = exports.makePublicKeyByMnemonic = void 0;
 var auth_1 = require("./auth");
 Object.defineProperty(exports, "makePublicKeyByMnemonic", { enumerable: true, get: function () { return auth_1.makePublicKeyByMnemonic; } });
 Object.defineProperty(exports, "generateAccount", { enumerable: true, get: function () { return auth_1.generateAccount; } });
+Object.defineProperty(exports, "makeAccountByMnemonic", { enumerable: true, get: function () { return auth_1.makeAccountByMnemonic; } });
+Object.defineProperty(exports, "makeAccountByWif", { enumerable: true, get: function () { return auth_1.makeAccountByWif; } });
 var chainsSingleton_1 = require("./blockchain/chainsSingleton");
 Object.defineProperty(exports, "ChainsSingleton", { enumerable: true, get: function () { return __importDefault(chainsSingleton_1).default; } });
 var readApi_1 = require("./blockchain/readApi");
