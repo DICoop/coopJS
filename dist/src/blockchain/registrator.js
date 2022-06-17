@@ -20,10 +20,13 @@ class Registrator {
         return `${this.config.api}${path}`.replace(/\/\/+/g, '/');
     }
     post(path, data) {
-        return axios_1.default.post(this.getUrl(path), data).then(r => r.data);
+        return axios_1.default.post(this.getUrl(path), data, { headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' } }).then(r => r.data);
     }
     get(path, params) {
-        return axios_1.default.post(this.getUrl(path), params && { params }).then(r => r.data);
+        return axios_1.default.get(this.getUrl(path), {
+            params: params || {},
+            headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
+        }).then(r => r.data);
     }
     setAccount(username, pub, ownerpub, email, referer, callback, accountType) {
         return this.get('/set', {
