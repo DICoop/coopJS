@@ -46,7 +46,7 @@ const makeAccountByWif = async (username, wif) => {
     if (!(0, ecc_1.isValidWif)(wif)) {
         throw (0, ono_1.default)(new errors_1.UniCoreWifParseError('Invalid wif'));
     }
-    const publicKey = (0, ecc_1.privateKeyToPublic)((0, ecc_1.wifToPrivateKey)(wif)).toString();
+    const publicKey = (0, ecc_1.privateKeyToPublic)((0, ecc_1.wifToPrivateKey)(wif)).toLegacyString();
     return (0, exports.makeAccount)(username, '', wif, publicKey);
 };
 exports.makeAccountByWif = makeAccountByWif;
