@@ -9,6 +9,7 @@ import NftContract from './contracts/nft';
 import { AuthKeySearchCallback, AuthKeyType, ChainConfig, ChainCrypt, SignatureProviderMaker, TableCodeConfig } from './types';
 import ReadApi from './readApi';
 import BaseContract from "./contracts/base";
+import Wallet from "./wallet";
 declare class Chain {
     private readonly name;
     readApi: ReadApi;
@@ -23,7 +24,10 @@ declare class Chain {
     partnersContract: PartnersContract;
     p2pContract: P2PContract;
     nftContract: NftContract;
+    wallets: Wallet[];
     constructor(chainConfig: ChainConfig, tableCodeConfig: TableCodeConfig, authKeySearchCallback?: AuthKeySearchCallback, signatureProviderMaker?: SignatureProviderMaker, chainCrypt?: ChainCrypt);
+    get walletsSymbols(): string[];
+    getWalletBySymbol(symbol: string): Wallet | undefined;
     applyContract<T extends BaseContract>(contract: {
         new (...args: any[]): T;
     }): T;

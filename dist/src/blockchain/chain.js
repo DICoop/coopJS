@@ -20,6 +20,7 @@ const nft_1 = __importDefault(require("./contracts/nft"));
 const readApi_1 = __importDefault(require("./readApi"));
 const errors_1 = require("./errors");
 const baseCrypt_1 = __importDefault(require("./baseCrypt"));
+const wallet_1 = __importDefault(require("./wallet"));
 const JsSignatureProviderMaker = ((wif) => Promise.resolve(new eosjs_jssig_1.JsSignatureProvider([wif])));
 class Chain {
     constructor(chainConfig, tableCodeConfig, authKeySearchCallback, signatureProviderMaker, chainCrypt) {
@@ -36,6 +37,13 @@ class Chain {
         this.partnersContract = this.applyContract(partners_1.default);
         this.p2pContract = this.applyContract(p2p_1.default);
         this.nftContract = this.applyContract(nft_1.default);
+        this.wallets = (chainConfig.wallets || []).map(walletConfig => new wallet_1.default(walletConfig, this.readApi));
+    }
+    get walletsSymbols() {
+        return this.wallets.map(wallet => wallet.symbol);
+    }
+    getWalletBySymbol(symbol) {
+        return this.wallets.find(wallet => wallet.symbol === symbol);
     }
     applyContract(contract) {
         return new contract(this.readApi, this.tableCodeConfig);

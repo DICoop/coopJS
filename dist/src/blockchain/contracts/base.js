@@ -5,7 +5,10 @@ class BaseContract {
         this.api = api;
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        this.name = tableCodeConfig[name] || name;
+        this.baseName = tableCodeConfig[name] || name;
+    }
+    get name() {
+        return this.baseName;
     }
     async getTableRows({ scope, table, table_key, lower_bound, upper_bound, limit, key_type, index_position, parseMetaAsJson, parseKeysAsJson, getAllRows, }, prependResult) {
         const keysAsJson = parseKeysAsJson || [];

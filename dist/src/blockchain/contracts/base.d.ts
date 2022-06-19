@@ -16,8 +16,9 @@ export interface TableRowsArgs {
 }
 declare class BaseContract {
     private api;
-    private readonly name;
+    private readonly baseName;
     constructor(api: ReadApi, tableCodeConfig: TableCodeConfig, name: string);
+    get name(): string;
     getTableRows<ReturnType>({ scope, table, table_key, lower_bound, upper_bound, limit, key_type, index_position, parseMetaAsJson, parseKeysAsJson, getAllRows, }: TableRowsArgs, prependResult?: ReturnType[]): Promise<TableResult<ReturnType>>;
     getSingleTableRow<ReturnType>(args: TableRowsArgs): Promise<ReturnType>;
 }
