@@ -9,8 +9,9 @@ class Wallet {
         this.canWithdraw = config.canWithdraw || false;
         this.readApi = readApi;
     }
-    getUserBalance(username) {
-        return this.readApi.getCurrencyBalance(this.contract, username, this.symbol);
+    async getUserBalance(username) {
+        const result = await this.readApi.getCurrencyBalance(this.contract, username, this.symbol);
+        return result[0] ? result[0] : '0.0000 ' + this.symbol;
     }
 }
 exports.default = Wallet;

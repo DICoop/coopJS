@@ -9,6 +9,6 @@ declare class Wallet {
     canDeposit: boolean;
     canWithdraw: boolean;
     constructor(config: WalletConfig, readApi: ReadApi);
-    getUserBalance(username: AccountName): Promise<string[]>;
+    getUserBalance(username: AccountName): Promise<string>;
 }
 export default Wallet;
