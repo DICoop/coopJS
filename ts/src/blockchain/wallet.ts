@@ -19,8 +19,10 @@ class Wallet {
         this.readApi = readApi;
     }
 
-    getUserBalance(username: AccountName) {
-        return this.readApi.getCurrencyBalance(this.contract, username, this.symbol)
+    async getUserBalance(username: AccountName) {
+        const result = await this.readApi.getCurrencyBalance(this.contract, username, this.symbol)
+
+        return result[0] ? result[0] : '0.0000 ' + this.symbol
     }
 }
 
