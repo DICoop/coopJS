@@ -26,6 +26,14 @@ export interface TableCodeConfigStrict {
 
 export type AuthKeyType = 'plain-auth-key' | 'auth-key-search-callback'
 
+export interface WalletConfig {
+  symbol: string
+  contract: string
+  canTransfer?: boolean
+  canDeposit?: boolean
+  canWithdraw?: boolean
+}
+
 export interface ChainConfig {
   name: string
   rpcEndpoints: RpcEndpoint[]
@@ -33,6 +41,7 @@ export interface ChainConfig {
   explorerApiUrl: string
   tableCodeConfigOverride?: TableCodeConfig
   authKeyType?: AuthKeyType
+  wallets?: WalletConfig[]
 }
 
 export interface UalConfig {

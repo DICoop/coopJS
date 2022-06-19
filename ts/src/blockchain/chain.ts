@@ -27,6 +27,7 @@ import ReadApi from './readApi'
 import BaseContract from "./contracts/base";
 import {NotImplementedError} from './errors';
 import BaseCrypt from "./baseCrypt";
+import Wallet from "./wallet";
 
 interface RpcsByEndpoints {
   [key: string]: JsonRpc
@@ -50,6 +51,8 @@ class Chain {
   public p2pContract: P2PContract
   public nftContract: NftContract
 
+  public wallets: Wallet[]
+
   constructor(
       chainConfig: ChainConfig,
       tableCodeConfig: TableCodeConfig,
@@ -71,6 +74,16 @@ class Chain {
     this.partnersContract = this.applyContract(PartnersContract)
     this.p2pContract = this.applyContract(P2PContract)
     this.nftContract = this.applyContract(NftContract)
+
+    this.wallets = (chainConfig.wallets || []).map(walletConfig => new Wallet(walletConfig, this.readApi))
+  }
+
+  get walletsSymbols() {
+    return this.wallets.map(wallet => wallet.symbol)
+  }
+
+  getWalletBySymbol(symbol: string) {
+    return this.wallets.find(wallet => wallet.symbol === symbol)
   }
 
   applyContract<T extends BaseContract>(contract: { new(...args: any[]): T ;}): T {

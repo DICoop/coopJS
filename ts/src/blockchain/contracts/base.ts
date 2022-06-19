@@ -18,13 +18,17 @@ export interface TableRowsArgs {
 
 class BaseContract {
   private api: ReadApi
-  private readonly name: string
+  private readonly baseName: string
 
   constructor(api: ReadApi, tableCodeConfig: TableCodeConfig, name: string) {
     this.api = api
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    this.name = tableCodeConfig[name] || name
+    this.baseName = tableCodeConfig[name] || name
+  }
+
+  get name() {
+    return this.baseName
   }
 
   async getTableRows<ReturnType>({
