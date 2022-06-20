@@ -12,6 +12,7 @@ export interface NftObject {
     ipns: string;
     lang: string;
     title: string;
+    total_pieces: number;
 }
 declare class NftContract extends BaseContract {
     constructor(api: ReadApi, tableCodeConfig: TableCodeConfig);
