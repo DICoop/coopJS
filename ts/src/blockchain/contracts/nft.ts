@@ -13,6 +13,7 @@ export interface NftObject {
   ipns: string
   lang: string
   title: string
+  total_pieces: number
 }
 
 class NftContract extends BaseContract {
