@@ -3,6 +3,18 @@ import ReadApi from '../readApi'
 import { TableCodeConfig } from '../types'
 import BaseContract, {TableRowsArgs} from './base'
 
+export interface NftObject {
+  category: string
+  creator: string
+  creator_can_emit_new_pieces: number
+  description: string
+  id: number
+  images: string
+  ipns: string
+  lang: string
+  title: string
+}
+
 class NftContract extends BaseContract {
   constructor(api: ReadApi, tableCodeConfig: TableCodeConfig) {
     super(api, tableCodeConfig, 'nft')
@@ -17,8 +29,9 @@ class NftContract extends BaseContract {
       index_position: 2,
       key_type: 'i64',
       getAllRows: true,
+      parseMetaAsJson: true,
     }
-    const {rows} = await this.getTableRows<any>(q)
+    const {rows} = await this.getTableRows<NftObject>(q)
 
     return rows;
   }
@@ -29,8 +42,9 @@ class NftContract extends BaseContract {
       limit: 100,
       lower_bound: 0,
       getAllRows: true,
+      parseMetaAsJson: true,
     }
-    const {rows} = await this.getTableRows<any>(q)
+    const {rows} = await this.getTableRows<NftObject>(q)
 
     return rows;
   }
