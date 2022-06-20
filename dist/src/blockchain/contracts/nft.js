@@ -17,6 +17,7 @@ class NftContract extends base_1.default {
             index_position: 2,
             key_type: 'i64',
             getAllRows: true,
+            parseMetaAsJson: true,
         };
         const { rows } = await this.getTableRows(q);
         return rows;
@@ -27,6 +28,7 @@ class NftContract extends base_1.default {
             limit: 100,
             lower_bound: 0,
             getAllRows: true,
+            parseMetaAsJson: true,
         };
         const { rows } = await this.getTableRows(q);
         return rows;
