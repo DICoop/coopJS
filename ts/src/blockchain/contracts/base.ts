@@ -2,6 +2,12 @@ import ReadApi from '../readApi'
 import { TableCodeConfig } from '../types'
 import {TableResult} from "../../eos/types";
 
+interface DefaultJsonValueMaker {
+  [key: string]: () => any
+}
+
+const DEFAULT_META_MAKER = () => ({});
+
 export interface TableRowsArgs {
   scope?: string
   table: string
@@ -13,6 +19,7 @@ export interface TableRowsArgs {
   index_position?: number
   parseMetaAsJson?: boolean
   parseKeysAsJson?: string[],
+  defaultJsonValues?: DefaultJsonValueMaker,
   getAllRows?: boolean
 }
 
@@ -42,6 +49,7 @@ class BaseContract {
     index_position,
     parseMetaAsJson,
     parseKeysAsJson,
+    defaultJsonValues,
     getAllRows,
   }: TableRowsArgs, prependResult?: ReturnType[]): Promise<TableResult<ReturnType>> {
     const keysAsJson = parseKeysAsJson || [];
@@ -64,12 +72,13 @@ class BaseContract {
     if (keysAsJson.length > 0 && result.rows) {
       for (const row of result.rows) {
         for (const keyAsJson of keysAsJson) {
+          const defaultValueMaker = defaultJsonValues?.[keyAsJson] || DEFAULT_META_MAKER
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           if (!row[keyAsJson]) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            row[keyAsJson] = {}
+            row[keyAsJson] = defaultValueMaker()
           } else {
             try {
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -78,7 +87,7 @@ class BaseContract {
             } catch (_) {
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              row[keyAsJson] = {}
+              row[keyAsJson] = defaultValueMaker()
             }
           }
         }
@@ -106,6 +115,7 @@ class BaseContract {
       index_position,
       parseMetaAsJson,
       parseKeysAsJson,
+      defaultJsonValues,
       getAllRows,
     }, result.rows)
   }

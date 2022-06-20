@@ -31,6 +31,10 @@ class NftContract extends BaseContract {
       key_type: 'i64',
       getAllRows: true,
       parseMetaAsJson: true,
+      parseKeysAsJson: ['images'],
+      defaultJsonValues: {
+        images: () => [],
+      },
     }
     const {rows} = await this.getTableRows<NftObject>(q)
 
@@ -44,6 +48,10 @@ class NftContract extends BaseContract {
       lower_bound: 0,
       getAllRows: true,
       parseMetaAsJson: true,
+      parseKeysAsJson: ['images'],
+      defaultJsonValues: {
+        images: () => [],
+      },
     }
     const {rows} = await this.getTableRows<NftObject>(q)
 
