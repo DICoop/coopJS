@@ -14,12 +14,14 @@ class ChainsSingleton {
         this.rootChain = 'unknown';
         this.registrator = new registrator_1.default(null);
     }
-    init(config, authKeySearchCallback, signatureProviderMaker, chainCrypt) {
+    init(config, authKeySearchCallback, signatureProviderMaker, chainCrypt, textDecoder, textEncoder) {
         if (this.initialized) {
             return;
         }
+        this.textDecoder = textDecoder;
+        this.textEncoder = textEncoder;
         for (const chain of config.chains) {
-            this.chainsByName[chain.name] = new chain_1.default(chain, config.tableCodeConfig, authKeySearchCallback, signatureProviderMaker, chainCrypt);
+            this.chainsByName[chain.name] = new chain_1.default(chain, config.tableCodeConfig, authKeySearchCallback, signatureProviderMaker, chainCrypt, this.textDecoder, this.textEncoder);
         }
         this.rootChain = config.ual.rootChain;
         if (config.registrator) {

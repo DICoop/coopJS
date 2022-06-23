@@ -23,7 +23,7 @@ const baseCrypt_1 = __importDefault(require("./baseCrypt"));
 const wallet_1 = __importDefault(require("./wallet"));
 const JsSignatureProviderMaker = ((wif) => Promise.resolve(new eosjs_jssig_1.JsSignatureProvider([wif])));
 class Chain {
-    constructor(chainConfig, tableCodeConfig, authKeySearchCallback, signatureProviderMaker, chainCrypt) {
+    constructor(chainConfig, tableCodeConfig, authKeySearchCallback, signatureProviderMaker, chainCrypt, textDecoder, textEncoder) {
         this.name = chainConfig.name;
         this.tableCodeConfig = { ...tableCodeConfig, ...(chainConfig.tableCodeConfigOverride || {}) };
         this.readApi = new readApi_1.default(this.name, chainConfig.rpcEndpoints, chainConfig.balancingMode);
@@ -32,6 +32,8 @@ class Chain {
         this.authKeySearchCallback = authKeySearchCallback;
         this.signatureProviderMaker = signatureProviderMaker || JsSignatureProviderMaker;
         this.chainCrypt = chainCrypt || new baseCrypt_1.default();
+        this.textDecoder = textDecoder;
+        this.textEncoder = textEncoder;
         this.eosioContract = this.applyContract(eosio_1.default);
         this.coreContract = this.applyContract(core_1.default);
         this.partnersContract = this.applyContract(partners_1.default);
@@ -61,8 +63,8 @@ class Chain {
             rpc,
             signatureProvider,
             // @ts-ignore
-            textDecoder: new util_1.TextDecoder(),
-            textEncoder: new util_1.TextEncoder(),
+            textDecoder: new (this.textDecoder || util_1.TextDecoder)(),
+            textEncoder: new (this.textEncoder || util_1.TextEncoder)(),
         });
     }
     /**

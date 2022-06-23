@@ -1,3 +1,5 @@
+/// <reference types="node" />
+import { TextDecoder, TextEncoder } from 'util';
 import { Api, JsonRpc } from 'eosjs';
 import { SignatureProvider, TransactConfig, Transaction, TransactResult } from 'eosjs/dist/eosjs-api-interfaces';
 import { PushTransactionArgs, ReadOnlyTransactResult } from 'eosjs/dist/eosjs-rpc-interfaces';
@@ -19,13 +21,15 @@ declare class Chain {
     private readonly authKeySearchCallback?;
     private readonly signatureProviderMaker;
     private readonly chainCrypt;
+    private textDecoder?;
+    private textEncoder?;
     eosioContract: EosioContract;
     coreContract: CoreContract;
     partnersContract: PartnersContract;
     p2pContract: P2PContract;
     nftContract: NftContract;
     wallets: Wallet[];
-    constructor(chainConfig: ChainConfig, tableCodeConfig: TableCodeConfig, authKeySearchCallback?: AuthKeySearchCallback, signatureProviderMaker?: SignatureProviderMaker, chainCrypt?: ChainCrypt);
+    constructor(chainConfig: ChainConfig, tableCodeConfig: TableCodeConfig, authKeySearchCallback?: AuthKeySearchCallback, signatureProviderMaker?: SignatureProviderMaker, chainCrypt?: ChainCrypt, textDecoder?: typeof TextDecoder, textEncoder?: typeof TextEncoder);
     get walletsSymbols(): string[];
     getWalletBySymbol(symbol: string): Wallet | undefined;
     applyContract<T extends BaseContract>(contract: {
