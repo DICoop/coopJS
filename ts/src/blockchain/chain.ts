@@ -44,6 +44,8 @@ class Chain {
   private readonly authKeySearchCallback?: AuthKeySearchCallback
   private readonly signatureProviderMaker: SignatureProviderMaker
   private readonly chainCrypt: ChainCrypt
+  private textDecoder?: typeof TextDecoder
+  private textEncoder?: typeof TextEncoder
 
   public eosioContract: EosioContract
   public coreContract: CoreContract
@@ -59,6 +61,8 @@ class Chain {
       authKeySearchCallback?: AuthKeySearchCallback,
       signatureProviderMaker?: SignatureProviderMaker,
       chainCrypt?: ChainCrypt,
+      textDecoder?: typeof TextDecoder,
+      textEncoder?: typeof TextEncoder,
   ) {
     this.name = chainConfig.name
     this.tableCodeConfig = { ...tableCodeConfig, ...(chainConfig.tableCodeConfigOverride || {}) }
@@ -68,6 +72,8 @@ class Chain {
     this.authKeySearchCallback = authKeySearchCallback
     this.signatureProviderMaker = signatureProviderMaker || JsSignatureProviderMaker
     this.chainCrypt = chainCrypt || new BaseCrypt()
+    this.textDecoder = textDecoder
+    this.textEncoder = textEncoder
 
     this.eosioContract = this.applyContract(EosioContract)
     this.coreContract = this.applyContract(CoreContract)
@@ -106,8 +112,8 @@ class Chain {
       rpc,
       signatureProvider,
       // @ts-ignore
-      textDecoder: new TextDecoder(),
-      textEncoder: new TextEncoder(),
+      textDecoder: new (this.textDecoder || TextDecoder)(),
+      textEncoder: new (this.textEncoder || TextEncoder)(),
     });
   }
 

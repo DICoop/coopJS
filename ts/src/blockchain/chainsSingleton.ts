@@ -1,4 +1,5 @@
 import ono from '@jsdevtools/ono'
+import {TextDecoder, TextEncoder} from 'util'
 
 import Chain from './chain'
 import {Config, SignatureProviderMaker, AuthKeySearchCallback, ChainCrypt} from './types'
@@ -14,6 +15,8 @@ class ChainsSingleton {
   private initialized: boolean
   private rootChain: string
   public registrator: Registrator
+  public textDecoder?: typeof TextDecoder
+  public textEncoder?: typeof TextEncoder
 
   constructor() {
     this.chainsByName = {}
@@ -27,10 +30,15 @@ class ChainsSingleton {
       authKeySearchCallback?: AuthKeySearchCallback,
       signatureProviderMaker?: SignatureProviderMaker,
       chainCrypt?: ChainCrypt,
+      textDecoder?: typeof TextDecoder,
+      textEncoder?: typeof TextEncoder,
     ) {
     if (this.initialized) {
       return
     }
+
+    this.textDecoder = textDecoder
+    this.textEncoder = textEncoder
 
     for (const chain of config.chains) {
       this.chainsByName[chain.name] = new Chain(
@@ -39,6 +47,8 @@ class ChainsSingleton {
           authKeySearchCallback,
           signatureProviderMaker,
           chainCrypt,
+          this.textDecoder,
+          this.textEncoder
       )
     }
 
