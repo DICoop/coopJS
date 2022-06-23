@@ -34,7 +34,7 @@ class BaseContract {
     this.baseName = tableCodeConfig[name] || name
   }
 
-  get name() {
+  public get name() {
     return this.baseName
   }
 
