@@ -9,7 +9,7 @@ export interface NftObject {
   creator_can_emit_new_pieces: number
   description: string
   id: number
-  images: string
+  images: string[]
   ipns: string
   lang: string
   title: string
