@@ -1,3 +1,4 @@
+/// <reference path="../../ts/src/eos-api.d.ts" />
 export { makePublicKeyByMnemonic, generateAccount, AccountData, makeAccountByMnemonic, makeAccountByWif, } from './auth';
 export { isValidWif } from './auth/keys/ecc';
 export { default as ChainsSingleton } from './blockchain/chainsSingleton';
