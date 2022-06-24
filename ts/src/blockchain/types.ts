@@ -42,6 +42,7 @@ export interface ChainConfig {
   tableCodeConfigOverride?: TableCodeConfig
   authKeyType?: AuthKeyType
   wallets?: WalletConfig[]
+  coreSymbol?: string
 }
 
 export interface UalConfig {
