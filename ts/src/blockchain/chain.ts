@@ -54,6 +54,7 @@ class Chain {
   public nftContract: NftContract
 
   public wallets: Wallet[]
+  public readonly coreSymbol?: string
 
   constructor(
       chainConfig: ChainConfig,
@@ -74,6 +75,7 @@ class Chain {
     this.chainCrypt = chainCrypt || new BaseCrypt()
     this.textDecoder = textDecoder
     this.textEncoder = textEncoder
+    this.coreSymbol = chainConfig.coreSymbol
 
     this.eosioContract = this.applyContract(EosioContract)
     this.coreContract = this.applyContract(CoreContract)
