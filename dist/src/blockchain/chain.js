@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const util_1 = require("util");
+const text_encoding_1 = require("text-encoding");
 const eosjs_1 = require("eosjs");
 const eosjs_jssig_1 = require("eosjs/dist/eosjs-jssig");
 const isomorphic_fetch_1 = __importDefault(require("isomorphic-fetch"));
@@ -63,8 +63,8 @@ class Chain {
             rpc,
             signatureProvider,
             // @ts-ignore
-            textDecoder: new (this.textDecoder || util_1.TextDecoder)(),
-            textEncoder: new (this.textEncoder || util_1.TextEncoder)(),
+            textDecoder: new (this.textDecoder || text_encoding_1.TextDecoder)(),
+            textEncoder: new (this.textEncoder || text_encoding_1.TextEncoder)(),
         });
     }
     /**

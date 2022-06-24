@@ -1,5 +1,5 @@
 import ono from '@jsdevtools/ono'
-import {TextDecoder, TextEncoder} from 'util'
+import {TextDecoder, TextEncoder} from 'text-encoding'
 
 import Chain from './chain'
 import {Config, SignatureProviderMaker, AuthKeySearchCallback, ChainCrypt} from './types'

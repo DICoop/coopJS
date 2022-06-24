@@ -1,5 +1,4 @@
-/// <reference types="node" />
-import { TextDecoder, TextEncoder } from 'util';
+import { TextDecoder, TextEncoder } from 'text-encoding';
 import { Api, JsonRpc } from 'eosjs';
 import { SignatureProvider, TransactConfig, Transaction, TransactResult } from 'eosjs/dist/eosjs-api-interfaces';
 import { PushTransactionArgs, ReadOnlyTransactResult } from 'eosjs/dist/eosjs-rpc-interfaces';
