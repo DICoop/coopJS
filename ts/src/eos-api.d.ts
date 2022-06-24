@@ -12,7 +12,7 @@ declare module 'eosjs-api' {
   class EosApi {
     constructor(config: EosApiConfig)
 
-    getKeyAccounts(publicKey: string): Promise<AccountName[]>
+    getKeyAccounts(publicKey: string): Promise<{account_names: AccountName[]}>
 
     getAccount(accountName: AccountName): Promise<AccountStats>
 
