@@ -1,4 +1,4 @@
-import {TextDecoder, TextEncoder} from 'util';
+import {TextDecoder, TextEncoder} from 'text-encoding';
 import {Api, JsonRpc} from 'eosjs';
 import {JsSignatureProvider} from 'eosjs/dist/eosjs-jssig';
 import {SignatureProvider, TransactConfig, Transaction, TransactResult} from 'eosjs/dist/eosjs-api-interfaces';
