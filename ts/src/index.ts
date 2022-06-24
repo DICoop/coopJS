@@ -1,3 +1,5 @@
+/// <reference path="./eos-api.d.ts" />
+
 export {
     makePublicKeyByMnemonic,
     generateAccount,
