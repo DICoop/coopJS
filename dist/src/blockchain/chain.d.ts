@@ -28,6 +28,7 @@ declare class Chain {
     p2pContract: P2PContract;
     nftContract: NftContract;
     wallets: Wallet[];
+    readonly coreSymbol?: string;
     constructor(chainConfig: ChainConfig, tableCodeConfig: TableCodeConfig, authKeySearchCallback?: AuthKeySearchCallback, signatureProviderMaker?: SignatureProviderMaker, chainCrypt?: ChainCrypt, textDecoder?: typeof TextDecoder, textEncoder?: typeof TextEncoder);
     get walletsSymbols(): string[];
     getWalletBySymbol(symbol: string): Wallet | undefined;

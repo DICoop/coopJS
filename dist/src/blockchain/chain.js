@@ -34,6 +34,7 @@ class Chain {
         this.chainCrypt = chainCrypt || new baseCrypt_1.default();
         this.textDecoder = textDecoder;
         this.textEncoder = textEncoder;
+        this.coreSymbol = chainConfig.coreSymbol;
         this.eosioContract = this.applyContract(eosio_1.default);
         this.coreContract = this.applyContract(core_1.default);
         this.partnersContract = this.applyContract(partners_1.default);
