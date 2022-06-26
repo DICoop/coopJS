@@ -10,6 +10,6 @@ const isValidMnemonic = (mnemonic) => (0, bip39_1.validateMnemonic)(mnemonic, en
 exports.isValidMnemonic = isValidMnemonic;
 const mnemonicToSeed = (mnemonic) => (0, bip39_1.mnemonicToSeed)(mnemonic, english_json_1.default).then((seed) => seed.toString('hex'));
 exports.mnemonicToSeed = mnemonicToSeed;
-const generateMnemonic = () => (0, bip39_1.generateMnemonic)();
+const generateMnemonic = () => (0, bip39_1.generateMnemonic)(null, null, english_json_1.default);
 exports.generateMnemonic = generateMnemonic;
 //# sourceMappingURL=bip39.js.map
