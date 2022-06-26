@@ -6,4 +6,4 @@ export const isValidMnemonic = (mnemonic: string) => validateMnemonic(mnemonic, 
 export const mnemonicToSeed = (mnemonic: string) =>
   mnemonicToSeedBip39(mnemonic, EN).then((seed: Buffer) => seed.toString('hex'))
 
-export const generateMnemonic = (): string => gM()
+export const generateMnemonic = (): string => gM(null, null, EN)
