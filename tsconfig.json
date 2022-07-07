@@ -3,15 +3,20 @@
     "declaration": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "declarationMap": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "lib": [
-      "es2019",
+      "es6",
+      "es2021",
+      "esnext",
       "dom"
     ],
-    "module": "commonjs",
+    "module": "es2022",
+    "moduleResolution": "Node",
     "outDir": "dist",
     "rootDir": "ts",
-    "sourceMap": true,
     "strict": true,
-    "target": "es2019"
+    "target": "es2021"
   }
 }

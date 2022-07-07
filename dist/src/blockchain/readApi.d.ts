@@ -22,3 +22,4 @@ declare class ReadApi {
     getTableRows<RowType>(code: string, scope: string, table: string, table_key?: string, lower_bound?: number | string, upper_bound?: number | string, limit?: number, key_type?: string, index_position?: number): import("../eos/types").TableResult<RowType>;
 }
 export default ReadApi;
+//# sourceMappingURL=readApi.d.ts.map

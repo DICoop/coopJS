@@ -12,3 +12,4 @@ declare class Wallet {
     getUserBalance(username: AccountName): Promise<string>;
 }
 export default Wallet;
+//# sourceMappingURL=wallet.d.ts.map

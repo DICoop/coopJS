@@ -8,3 +8,4 @@ export declare class NotImplementedError extends Error {
 }
 export declare class RegistratorIsNotConfigured extends Error {
 }
+//# sourceMappingURL=errors.d.ts.map

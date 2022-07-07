@@ -16,3 +16,4 @@ declare class ChainsSingleton {
     getRootChain(): Chain;
 }
 export default ChainsSingleton;
+//# sourceMappingURL=chainsSingleton.d.ts.map

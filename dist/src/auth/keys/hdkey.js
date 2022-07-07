@@ -1,22 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.hdNodeToPrivateKeyBuffer = exports.hdNodeToPublicKeyBuffer = exports.hdToFirstHdNode = exports.seedToHd = void 0;
-const hdkey_1 = __importDefault(require("hdkey"));
-const buffer_1 = require("buffer");
-const seedToHd = (seed) => {
+import hdkey from 'hdkey';
+import { Buffer } from 'buffer';
+export const seedToHd = (seed) => {
     const isString = typeof seed === 'string';
-    const seedBuffer = isString ? buffer_1.Buffer.from(seed, 'hex') : seed;
-    return hdkey_1.default.fromMasterSeed(seedBuffer);
+    const seedBuffer = isString ? Buffer.from(seed, 'hex') : seed;
+    return hdkey.fromMasterSeed(seedBuffer);
 };
-exports.seedToHd = seedToHd;
-const hdToFirstHdNode = (hd) => hd.derive("m/44'/194'/0'/0/0");
-exports.hdToFirstHdNode = hdToFirstHdNode;
-const hdNodeToPublicKeyBuffer = (hd) => hd.publicKey;
-exports.hdNodeToPublicKeyBuffer = hdNodeToPublicKeyBuffer;
+export const hdToFirstHdNode = (hd) => hd.derive("m/44'/194'/0'/0/0");
+export const hdNodeToPublicKeyBuffer = (hd) => hd.publicKey;
 // @ts-ignore
-const hdNodeToPrivateKeyBuffer = (hd) => hd.privateKey || hd._privateKey;
-exports.hdNodeToPrivateKeyBuffer = hdNodeToPrivateKeyBuffer;
-//# sourceMappingURL=hdkey.js.map
+export const hdNodeToPrivateKeyBuffer = (hd) => hd.privateKey || hd._privateKey;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaGRrZXkuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi90cy9zcmMvYXV0aC9rZXlzL2hka2V5LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE9BQU8sS0FBSyxNQUFNLE9BQU8sQ0FBQTtBQUN6QixPQUFPLEVBQUUsTUFBTSxFQUFFLE1BQU0sUUFBUSxDQUFBO0FBRS9CLE1BQU0sQ0FBQyxNQUFNLFFBQVEsR0FBRyxDQUFDLElBQXFCLEVBQUUsRUFBRTtJQUNoRCxNQUFNLFFBQVEsR0FBRyxPQUFPLElBQUksS0FBSyxRQUFRLENBQUE7SUFDekMsTUFBTSxVQUFVLEdBQUcsUUFBUSxDQUFDLENBQUMsQ0FBQyxNQUFNLENBQUMsSUFBSSxDQUFDLElBQUksRUFBRSxLQUFLLENBQUMsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFBO0lBRTdELE9BQU8sS0FBSyxDQUFDLGNBQWMsQ0FBQyxVQUFVLENBQUMsQ0FBQTtBQUN6QyxDQUFDLENBQUE7QUFFRCxNQUFNLENBQUMsTUFBTSxlQUFlLEdBQUcsQ0FBQyxFQUFTLEVBQUUsRUFBRSxDQUFDLEVBQUUsQ0FBQyxNQUFNLENBQUMsbUJBQW1CLENBQUMsQ0FBQTtBQUU1RSxNQUFNLENBQUMsTUFBTSx1QkFBdUIsR0FBRyxDQUFDLEVBQVMsRUFBRSxFQUFFLENBQUMsRUFBRSxDQUFDLFNBQVMsQ0FBQTtBQUVsRSxhQUFhO0FBQ2IsTUFBTSxDQUFDLE1BQU0sd0JBQXdCLEdBQUcsQ0FBQyxFQUFTLEVBQUUsRUFBRSxDQUFDLEVBQUUsQ0FBQyxVQUFVLElBQUksRUFBRSxDQUFDLFdBQVcsQ0FBQSIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBoZGtleSBmcm9tICdoZGtleSdcbmltcG9ydCB7IEJ1ZmZlciB9IGZyb20gJ2J1ZmZlcidcblxuZXhwb3J0IGNvbnN0IHNlZWRUb0hkID0gKHNlZWQ6IHN0cmluZyB8IEJ1ZmZlcikgPT4ge1xuICBjb25zdCBpc1N0cmluZyA9IHR5cGVvZiBzZWVkID09PSAnc3RyaW5nJ1xuICBjb25zdCBzZWVkQnVmZmVyID0gaXNTdHJpbmcgPyBCdWZmZXIuZnJvbShzZWVkLCAnaGV4JykgOiBzZWVkXG5cbiAgcmV0dXJuIGhka2V5LmZyb21NYXN0ZXJTZWVkKHNlZWRCdWZmZXIpXG59XG5cbmV4cG9ydCBjb25zdCBoZFRvRmlyc3RIZE5vZGUgPSAoaGQ6IGhka2V5KSA9PiBoZC5kZXJpdmUoXCJtLzQ0Jy8xOTQnLzAnLzAvMFwiKVxuXG5leHBvcnQgY29uc3QgaGROb2RlVG9QdWJsaWNLZXlCdWZmZXIgPSAoaGQ6IGhka2V5KSA9PiBoZC5wdWJsaWNLZXlcblxuLy8gQHRzLWlnbm9yZVxuZXhwb3J0IGNvbnN0IGhkTm9kZVRvUHJpdmF0ZUtleUJ1ZmZlciA9IChoZDogaGRrZXkpID0+IGhkLnByaXZhdGVLZXkgfHwgaGQuX3ByaXZhdGVLZXlcbiJdfQ==

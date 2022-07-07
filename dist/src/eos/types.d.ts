@@ -53,3 +53,4 @@ export interface TableResult<RowType = any> {
     more?: boolean;
     next_key?: number | string;
 }
+//# sourceMappingURL=types.d.ts.map

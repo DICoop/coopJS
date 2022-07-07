@@ -4,3 +4,4 @@ declare class BaseCrypt implements ChainCrypt {
     encrypt(authKey: string, publicKey: string, message: string, memo?: string): Promise<string>;
 }
 export default BaseCrypt;
+//# sourceMappingURL=baseCrypt.d.ts.map

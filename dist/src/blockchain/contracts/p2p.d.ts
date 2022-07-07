@@ -56,3 +56,4 @@ declare class P2PContract extends BaseContract {
     getUsdRate(symbol: string, precision: number): Promise<string>;
 }
 export default P2PContract;
+//# sourceMappingURL=p2p.d.ts.map

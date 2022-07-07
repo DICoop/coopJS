@@ -1,10 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UniCoreWifParseError = exports.UniCoreMnemonicParseError = void 0;
-class UniCoreMnemonicParseError extends Error {
+export class UniCoreMnemonicParseError extends Error {
 }
-exports.UniCoreMnemonicParseError = UniCoreMnemonicParseError;
-class UniCoreWifParseError extends Error {
+export class UniCoreWifParseError extends Error {
 }
-exports.UniCoreWifParseError = UniCoreWifParseError;
-//# sourceMappingURL=errors.js.map
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZXJyb3JzLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vdHMvc3JjL2F1dGgvZXJyb3JzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE1BQU0sT0FBTyx5QkFBMEIsU0FBUSxLQUFLO0NBQUc7QUFFdkQsTUFBTSxPQUFPLG9CQUFxQixTQUFRLEtBQUs7Q0FBRyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjbGFzcyBVbmlDb3JlTW5lbW9uaWNQYXJzZUVycm9yIGV4dGVuZHMgRXJyb3Ige31cblxuZXhwb3J0IGNsYXNzIFVuaUNvcmVXaWZQYXJzZUVycm9yIGV4dGVuZHMgRXJyb3Ige31cbiJdfQ==

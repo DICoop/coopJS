@@ -1,13 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const eos_encrypt_1 = require("eos-encrypt");
+import { encrypt, decrypt } from 'eos-encrypt';
 class BaseCrypt {
     decrypt(authKey, publicKey, message, memo) {
-        return Promise.resolve((0, eos_encrypt_1.encrypt)(authKey, publicKey, message, { memo, maxsize: 10000 }));
+        return Promise.resolve(encrypt(authKey, publicKey, message, { memo, maxsize: 10000 }));
     }
     encrypt(authKey, publicKey, message, memo) {
-        return Promise.resolve((0, eos_encrypt_1.decrypt)(authKey, publicKey, message, { memo }));
+        return Promise.resolve(decrypt(authKey, publicKey, message, { memo }));
     }
 }
-exports.default = BaseCrypt;
-//# sourceMappingURL=baseCrypt.js.map
+export default BaseCrypt;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYmFzZUNyeXB0LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vdHMvc3JjL2Jsb2NrY2hhaW4vYmFzZUNyeXB0LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE9BQU8sRUFBQyxPQUFPLEVBQUUsT0FBTyxFQUFDLE1BQU0sYUFBYSxDQUFBO0FBSTVDLE1BQU0sU0FBUztJQUNYLE9BQU8sQ0FBQyxPQUFlLEVBQUUsU0FBaUIsRUFBRSxPQUFlLEVBQUUsSUFBYTtRQUN0RSxPQUFPLE9BQU8sQ0FBQyxPQUFPLENBQUMsT0FBTyxDQUFDLE9BQU8sRUFBRSxTQUFTLEVBQUUsT0FBTyxFQUFFLEVBQUMsSUFBSSxFQUFFLE9BQU8sRUFBRSxLQUFLLEVBQUMsQ0FBQyxDQUFDLENBQUM7SUFDekYsQ0FBQztJQUVELE9BQU8sQ0FBQyxPQUFlLEVBQUUsU0FBaUIsRUFBRSxPQUFlLEVBQUUsSUFBYTtRQUN0RSxPQUFPLE9BQU8sQ0FBQyxPQUFPLENBQUMsT0FBTyxDQUFDLE9BQU8sRUFBRSxTQUFTLEVBQUUsT0FBTyxFQUFFLEVBQUMsSUFBSSxFQUFDLENBQUMsQ0FBQyxDQUFDO0lBQ3pFLENBQUM7Q0FDSjtBQUVELGVBQWUsU0FBUyxDQUFBIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtlbmNyeXB0LCBkZWNyeXB0fSBmcm9tICdlb3MtZW5jcnlwdCdcblxuaW1wb3J0IHtDaGFpbkNyeXB0fSBmcm9tIFwiLi90eXBlc1wiO1xuXG5jbGFzcyBCYXNlQ3J5cHQgaW1wbGVtZW50cyBDaGFpbkNyeXB0IHtcbiAgICBkZWNyeXB0KGF1dGhLZXk6IHN0cmluZywgcHVibGljS2V5OiBzdHJpbmcsIG1lc3NhZ2U6IHN0cmluZywgbWVtbz86IHN0cmluZyk6IFByb21pc2U8c3RyaW5nPiB7XG4gICAgICAgIHJldHVybiBQcm9taXNlLnJlc29sdmUoZW5jcnlwdChhdXRoS2V5LCBwdWJsaWNLZXksIG1lc3NhZ2UsIHttZW1vLCBtYXhzaXplOiAxMDAwMH0pKTtcbiAgICB9XG5cbiAgICBlbmNyeXB0KGF1dGhLZXk6IHN0cmluZywgcHVibGljS2V5OiBzdHJpbmcsIG1lc3NhZ2U6IHN0cmluZywgbWVtbz86IHN0cmluZyk6IFByb21pc2U8c3RyaW5nPiB7XG4gICAgICAgIHJldHVybiBQcm9taXNlLnJlc29sdmUoZGVjcnlwdChhdXRoS2V5LCBwdWJsaWNLZXksIG1lc3NhZ2UsIHttZW1vfSkpO1xuICAgIH1cbn1cblxuZXhwb3J0IGRlZmF1bHQgQmFzZUNyeXB0XG4iXX0=

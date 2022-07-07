@@ -11,3 +11,4 @@ declare class Registrator {
     checkEmail(email: string): Promise<any>;
 }
 export default Registrator;
+//# sourceMappingURL=registrator.d.ts.map

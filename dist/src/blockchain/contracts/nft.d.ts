@@ -50,3 +50,4 @@ declare class NftContract extends BaseContract {
     fetchRequests(username: AccountName): Promise<any[]>;
 }
 export default NftContract;
+//# sourceMappingURL=nft.d.ts.map

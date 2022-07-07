@@ -27,3 +27,4 @@ declare class BaseContract {
     getSingleTableRow<ReturnType>(args: TableRowsArgs): Promise<ReturnType>;
 }
 export default BaseContract;
+//# sourceMappingURL=base.d.ts.map

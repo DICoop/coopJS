@@ -186,3 +186,4 @@ declare class CoreContract extends BaseContract {
     getHost(hostname: string): Promise<HostData>;
 }
 export default CoreContract;
+//# sourceMappingURL=core.d.ts.map

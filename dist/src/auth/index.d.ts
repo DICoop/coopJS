@@ -11,3 +11,4 @@ export declare const makeAccount: (username: string, mnemonic: string, wif: stri
 export declare const makeAccountByMnemonic: (username: string, mnemonic: string) => Promise<AccountData>;
 export declare const makeAccountByWif: (username: string, wif: string) => Promise<AccountData>;
 export declare const generateAccount: () => Promise<AccountData>;
+//# sourceMappingURL=index.d.ts.map

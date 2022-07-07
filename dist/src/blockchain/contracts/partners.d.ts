@@ -7,3 +7,4 @@ declare class PartnersContract extends BaseContract {
     getAccountPartner(accountName: AccountName): Promise<any>;
 }
 export default PartnersContract;
+//# sourceMappingURL=partners.d.ts.map

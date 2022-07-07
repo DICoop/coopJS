@@ -49,3 +49,4 @@ declare class Chain {
     decryptMessage(authKeyQuery: string, publicKey: string, message: string, memo?: string, authKeyType?: AuthKeyType): Promise<string>;
 }
 export default Chain;
+//# sourceMappingURL=chain.d.ts.map

@@ -38,3 +38,4 @@ declare class EosioContract extends BaseContract {
     getGlobalData(): Promise<EosioGlobalData>;
 }
 export default EosioContract;
+//# sourceMappingURL=eosio.d.ts.map

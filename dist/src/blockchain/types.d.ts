@@ -56,3 +56,4 @@ export interface ChainCrypt {
     encrypt(authKey: string, publicKey: string, message: string, memo?: string): Promise<string>;
     decrypt(authKey: string, publicKey: string, message: string, memo?: string): Promise<string>;
 }
+//# sourceMappingURL=types.d.ts.map

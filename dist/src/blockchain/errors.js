@@ -1,19 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.RegistratorIsNotConfigured = exports.NotImplementedError = exports.ChainsIsNotInitializedError = exports.UnknownChainError = exports.RpcEndpointsEmptyError = void 0;
-class RpcEndpointsEmptyError extends Error {
+export class RpcEndpointsEmptyError extends Error {
 }
-exports.RpcEndpointsEmptyError = RpcEndpointsEmptyError;
-class UnknownChainError extends Error {
+export class UnknownChainError extends Error {
 }
-exports.UnknownChainError = UnknownChainError;
-class ChainsIsNotInitializedError extends Error {
+export class ChainsIsNotInitializedError extends Error {
 }
-exports.ChainsIsNotInitializedError = ChainsIsNotInitializedError;
-class NotImplementedError extends Error {
+export class NotImplementedError extends Error {
 }
-exports.NotImplementedError = NotImplementedError;
-class RegistratorIsNotConfigured extends Error {
+export class RegistratorIsNotConfigured extends Error {
 }
-exports.RegistratorIsNotConfigured = RegistratorIsNotConfigured;
-//# sourceMappingURL=errors.js.map
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZXJyb3JzLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vdHMvc3JjL2Jsb2NrY2hhaW4vZXJyb3JzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE1BQU0sT0FBTyxzQkFBdUIsU0FBUSxLQUFLO0NBQUc7QUFFcEQsTUFBTSxPQUFPLGlCQUFrQixTQUFRLEtBQUs7Q0FBRztBQUUvQyxNQUFNLE9BQU8sMkJBQTRCLFNBQVEsS0FBSztDQUFHO0FBRXpELE1BQU0sT0FBTyxtQkFBb0IsU0FBUSxLQUFLO0NBQUc7QUFFakQsTUFBTSxPQUFPLDBCQUEyQixTQUFRLEtBQUs7Q0FBRyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjbGFzcyBScGNFbmRwb2ludHNFbXB0eUVycm9yIGV4dGVuZHMgRXJyb3Ige31cblxuZXhwb3J0IGNsYXNzIFVua25vd25DaGFpbkVycm9yIGV4dGVuZHMgRXJyb3Ige31cblxuZXhwb3J0IGNsYXNzIENoYWluc0lzTm90SW5pdGlhbGl6ZWRFcnJvciBleHRlbmRzIEVycm9yIHt9XG5cbmV4cG9ydCBjbGFzcyBOb3RJbXBsZW1lbnRlZEVycm9yIGV4dGVuZHMgRXJyb3Ige31cblxuZXhwb3J0IGNsYXNzIFJlZ2lzdHJhdG9ySXNOb3RDb25maWd1cmVkIGV4dGVuZHMgRXJyb3Ige31cbiJdfQ==
