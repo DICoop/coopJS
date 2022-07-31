@@ -11,9 +11,11 @@ import { AuthKeySearchCallback, AuthKeyType, ChainConfig, ChainCrypt, SignatureP
 import ReadApi from './readApi';
 import BaseContract from "./contracts/base";
 import Wallet from "./wallet";
+import Explorer from "./explorer";
 declare class Chain {
     private readonly name;
     readApi: ReadApi;
+    explorer: Explorer;
     private readonly tableCodeConfig;
     private readonly rpcByEndpoint;
     private readonly authKeyType;
