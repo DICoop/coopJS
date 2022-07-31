@@ -28,6 +28,7 @@ import BaseContract from "./contracts/base";
 import {NotImplementedError} from './errors';
 import BaseCrypt from "./baseCrypt";
 import Wallet from "./wallet";
+import Explorer from "./explorer";
 
 interface RpcsByEndpoints {
   [key: string]: JsonRpc
@@ -38,6 +39,7 @@ const JsSignatureProviderMaker = ((wif: string) => Promise.resolve(new JsSignatu
 class Chain {
   private readonly name: string
   public readApi: ReadApi
+  public explorer: Explorer
   private readonly tableCodeConfig: TableCodeConfig
   private readonly rpcByEndpoint: RpcsByEndpoints
   private readonly authKeyType: AuthKeyType
@@ -68,6 +70,7 @@ class Chain {
     this.name = chainConfig.name
     this.tableCodeConfig = { ...tableCodeConfig, ...(chainConfig.tableCodeConfigOverride || {}) }
     this.readApi = new ReadApi(this.name, chainConfig.rpcEndpoints, chainConfig.balancingMode)
+    this.explorer = new Explorer(chainConfig.explorerApiUrl)
     this.rpcByEndpoint = {}
     this.authKeyType = chainConfig.authKeyType || 'plain-auth-key'
     this.authKeySearchCallback = authKeySearchCallback
