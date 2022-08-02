@@ -17,6 +17,9 @@ export interface DeliveryRequest {
     type: string;
     placeholder: string;
 }
+export declare type DeliveryRequestFilled = DeliveryRequest & {
+    value: string;
+};
 export interface NftMarketObject {
     base_piece_price: string;
     blocked_pieces: number;
@@ -50,7 +53,7 @@ export interface NftMarketRequest {
     status: "waiting" | "payed" | "accepted" | "delivery" | "finish";
     day_start: number;
     day_finish: number;
-    delivery_to: string;
+    delivery_to: DeliveryRequestFilled[];
     meta: Object;
 }
 declare class NftContract extends BaseContract {
