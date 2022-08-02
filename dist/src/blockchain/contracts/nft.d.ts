@@ -32,7 +32,7 @@ export interface NftMarketObject {
     sales_closed_at: string;
     sales_start_at: string;
     seller: string;
-    status: string;
+    status: "waiting" | "pause" | "accepted" | "confirmed" | "issued" | "declined" | "cancelled";
     token_contract: string;
     total_price: string;
 }
