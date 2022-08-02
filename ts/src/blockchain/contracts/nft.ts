@@ -38,6 +38,24 @@ export interface NftMarketObject {
   total_price: string
 }
 
+export interface NftMarketRequest {
+  id: number
+  market_id: number
+  buyer: string
+  seller: string
+  manager: string
+  requested_pieces: number
+  total_price: string
+  base_piece_price: string
+  one_piece_price: string
+  total_payed: string
+  status: "waiting" | "payed" | "accepted" | "delivery" | "finish"
+  day_start: number
+  day_finish: number
+  delivery_to: string
+  meta: Object
+}
+
 class NftContract extends BaseContract {
   constructor(api: ReadApi, tableCodeConfig: TableCodeConfig) {
     super(api, tableCodeConfig, 'nft')
@@ -95,16 +113,16 @@ class NftContract extends BaseContract {
 
   async fetchRequestsWithIndexPosition(username: AccountName, indexPosition: number) {
     const q: TableRowsArgs = {
-      table: 'pieces',
+      table: 'requests',
       lower_bound: username,
       upper_bound: username,
       limit: 1000,
       index_position: indexPosition,
       key_type: 'i64',
-      parseKeysAsJson: ['delivery_to'],
+      parseKeysAsJson: ['delivery_to', 'meta'],
       getAllRows: true,
     }
-    const {rows} = await this.getTableRows<any>(q)
+    const {rows} = await this.getTableRows<NftMarketRequest>(q)
 
     return rows;
   }
