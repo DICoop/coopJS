@@ -6,12 +6,11 @@ import BaseContract, {TableRowsArgs} from './base'
 export interface NftObject {
   category: string
   creator: string
-  creator_can_emit_new_pieces: number
   description: string
   id: number
   images: string[]
   ipns: string
-  lang: string
+  meta: Object,
   title: string
   total_pieces: number
 }
@@ -22,17 +21,14 @@ export interface DeliveryRequest {
 }
 
 export interface NftMarketObject {
+  base_piece_price: string
   blocked_pieces: number
-  buyer_can_offer_price: number
-  delivery_from: string
-  delivery_methods: string[]
-  delivery_operators: string[]
+  day_finish: number
+  day_start: number
   id: number
-  is_auction: number
-  lang: string
   meta: {delivery_request: DeliveryRequest[]}
+  min_piece_price: string
   object_id: number
-  one_piece_price: string
   remain_pieces: number
   sales_closed_at: string
   sales_start_at: string
@@ -40,7 +36,6 @@ export interface NftMarketObject {
   status: string
   token_contract: string
   total_price: string
-  with_delivery: number
 }
 
 class NftContract extends BaseContract {
