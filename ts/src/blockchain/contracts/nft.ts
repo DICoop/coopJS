@@ -53,7 +53,7 @@ export interface NftMarketRequest {
   base_piece_price: string
   one_piece_price: string
   total_payed: string
-  status: "waiting" | "accepted" | "confirmed" | "issued" | "declined" | "cancelled"
+  status: "waiting" | "accepted" | "confirmed" | "issued" | "declined" | "cancelled" | "completed"
   day_start: number
   day_finish: number
   delivery_to: DeliveryRequestFilled[]
