@@ -9,7 +9,7 @@ export interface NftObject {
     id: number;
     images: string[];
     ipns: string;
-    meta: Object;
+    meta: Record<string, unknown>;
     title: string;
     total_pieces: number;
 }
@@ -54,7 +54,7 @@ export interface NftMarketRequest {
     day_start: number;
     day_finish: number;
     delivery_to: DeliveryRequestFilled[];
-    meta: Object;
+    meta: Record<string, unknown>;
 }
 declare class NftContract extends BaseContract {
     constructor(api: ReadApi, tableCodeConfig: TableCodeConfig);
