@@ -35,7 +35,7 @@ export interface NftMarketObject {
     sales_closed_at: string;
     sales_start_at: string;
     seller: string;
-    status: "waiting" | "pause" | "accepted" | "confirmed" | "issued" | "declined" | "cancelled";
+    status: "waiting" | "pause";
     token_contract: string;
     total_price: string;
 }
@@ -50,7 +50,7 @@ export interface NftMarketRequest {
     base_piece_price: string;
     one_piece_price: string;
     total_payed: string;
-    status: "waiting" | "payed" | "accepted" | "delivery" | "finish";
+    status: "waiting" | "accepted" | "confirmed" | "issued" | "declined" | "cancelled";
     day_start: number;
     day_finish: number;
     delivery_to: DeliveryRequestFilled[];
