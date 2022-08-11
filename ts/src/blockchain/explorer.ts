@@ -9,7 +9,16 @@ class Explorer {
     }
 
     getUrl(path: string): string {
-        return `${this.baseUrl}${path}`.replace(/\/\/+/g, '/')
+        let result = this.baseUrl
+        if (result.endsWith('/')) {
+            result = result.substring(0, result.length - 1)
+        }
+        if (path[0] === '/') {
+            result = result + path
+        } else {
+            result = result + '/' + path
+        }
+        return result
     }
 
     post(path: string, data: any) {
