@@ -60,7 +60,9 @@ declare class NftContract extends BaseContract {
     constructor(api: ReadApi, tableCodeConfig: TableCodeConfig);
     getObjectsByOwner(owner: AccountName): Promise<NftObject[]>;
     getAllObjects(): Promise<NftObject[]>;
+    getObjectsById(id: number): Promise<NftObject[]>;
     getMarket(): Promise<NftMarketObject[]>;
+    getMarketObjectsById(id: number): Promise<NftMarketObject[]>;
     fetchRequestsWithIndexPosition(username: AccountName, indexPosition: number): Promise<NftMarketRequest[]>;
     fetchRequests(username: AccountName): Promise<NftMarketRequest[]>;
 }
