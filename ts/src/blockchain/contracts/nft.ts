@@ -102,12 +102,46 @@ class NftContract extends BaseContract {
     return rows;
   }
 
+  async getObjectsById(id: number) {
+    const q: TableRowsArgs = {
+      table: 'objects',
+      limit: 1,
+      lower_bound: id,
+      upper_bound: id,
+      index_position: 0,
+      key_type: 'i64',
+      parseMetaAsJson: true,
+      parseKeysAsJson: ['images'],
+      defaultJsonValues: {
+        images: () => [],
+      },
+    }
+    const {rows} = await this.getTableRows<NftObject>(q)
+
+    return rows;
+  }
+
   async getMarket() {
     const q: TableRowsArgs = {
       table: 'market',
       limit: 1000,
       lower_bound: 0,
       getAllRows: true,
+      parseMetaAsJson: true,
+    }
+    const {rows} = await this.getTableRows<NftMarketObject>(q)
+
+    return rows;
+  }
+
+  async getMarketObjectsById(id: number) {
+    const q: TableRowsArgs = {
+      table: 'market',
+      limit: 1,
+      lower_bound: id,
+      upper_bound: id,
+      index_position: 0,
+      key_type: 'i64',
       parseMetaAsJson: true,
     }
     const {rows} = await this.getTableRows<NftMarketObject>(q)
