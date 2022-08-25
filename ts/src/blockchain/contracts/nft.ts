@@ -15,6 +15,15 @@ export interface NftObject {
   total_pieces: number
 }
 
+export interface NftPieceObject {
+  id: number
+  object_id: number
+  owner: string,
+  pieces: number
+  day_finish: number
+  day_start: number
+}
+
 export interface DeliveryRequest {
   type: string
   placeholder: string
@@ -80,7 +89,7 @@ class NftContract extends BaseContract {
         images: () => [],
       },
     }
-    const {rows} = await this.getTableRows<NftObject>(q)
+    const {rows} = await this.getTableRows<NftPieceObject>(q)
 
     return rows;
   }
