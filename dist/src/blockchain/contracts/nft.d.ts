@@ -13,6 +13,14 @@ export interface NftObject {
     title: string;
     total_pieces: number;
 }
+export interface NftPieceObject {
+    id: number;
+    object_id: number;
+    owner: string;
+    pieces: number;
+    day_finish: number;
+    day_start: number;
+}
 export interface DeliveryRequest {
     type: string;
     placeholder: string;
@@ -58,7 +66,7 @@ export interface NftMarketRequest {
 }
 declare class NftContract extends BaseContract {
     constructor(api: ReadApi, tableCodeConfig: TableCodeConfig);
-    getObjectsByOwner(owner: AccountName): Promise<NftObject[]>;
+    getObjectsByOwner(owner: AccountName): Promise<NftPieceObject[]>;
     getAllObjects(): Promise<NftObject[]>;
     getObjectsById(id: number): Promise<NftObject[]>;
     getMarket(): Promise<NftMarketObject[]>;
