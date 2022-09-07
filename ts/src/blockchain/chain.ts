@@ -227,9 +227,24 @@ class Chain {
         return decodeURIComponent(escape(atob(decryptedMessage)))
     }
 
-    objToStableMessage(dict: Record<string, string>) {
-        const keys = Object.keys(dict).sort()
-        return keys.map(key => `${key}=${dict[key]}`).join('&')
+    makeValueAsStr(value: any): string {
+        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+            return String(value)
+        }
+
+        if (typeof value === 'object') {
+            if (Array.isArray(value)) {
+                return value.map(item => this.makeValueAsStr(item)).join(',')
+            }
+            const keys = Object.keys(value).sort()
+            return keys.map(key => `${key}=${this.makeValueAsStr(value[key])}`).join('&')
+        }
+
+        throw ono(new Error('Unsupported value type'))
+    }
+
+    objToStableMessage(dict: Record<string, any>) {
+        return this.makeValueAsStr(dict)
     }
 
     btoaEscape(str: string) {
