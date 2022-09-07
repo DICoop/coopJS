@@ -2,11 +2,11 @@
   "name": "unicore",
   "version": "1.13.1",
   "type": "commonjs",
-  "main": "./dist/cjs/index.js",
-  "types": "./dist/cjs/index.d.ts",
+  "main": "./dist/cjs/src/index.js",
+  "types": "./dist/cjs/src/index.d.ts",
   "exports": {
-    "require": "./dist/cjs/index.js",
-    "import": "./dist/esm/index.js"
+    "require": "./dist/cjs/src/index.js",
+    "import": "./dist/esm/src/index.js"
   },
   "scripts": {
     "clean": "shx rm -rf dist/*",
