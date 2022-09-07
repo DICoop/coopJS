@@ -12,6 +12,7 @@ import ReadApi from './readApi';
 import BaseContract from "./contracts/base";
 import Wallet from "./wallet";
 import Explorer from "./explorer";
+import PersonalData from "./personalData";
 declare class Chain {
     private readonly name;
     readApi: ReadApi;
@@ -24,6 +25,7 @@ declare class Chain {
     private readonly chainCrypt;
     private textDecoder?;
     private textEncoder?;
+    private personalData;
     eosioContract: EosioContract;
     coreContract: CoreContract;
     partnersContract: PartnersContract;
@@ -31,7 +33,7 @@ declare class Chain {
     nftContract: NftContract;
     wallets: Wallet[];
     readonly coreSymbol?: string;
-    constructor(chainConfig: ChainConfig, tableCodeConfig: TableCodeConfig, authKeySearchCallback?: AuthKeySearchCallback, signatureProviderMaker?: SignatureProviderMaker, chainCrypt?: ChainCrypt, textDecoder?: typeof TextDecoder, textEncoder?: typeof TextEncoder);
+    constructor(chainConfig: ChainConfig, tableCodeConfig: TableCodeConfig, personalData: PersonalData, authKeySearchCallback?: AuthKeySearchCallback, signatureProviderMaker?: SignatureProviderMaker, chainCrypt?: ChainCrypt, textDecoder?: typeof TextDecoder, textEncoder?: typeof TextEncoder);
     get walletsSymbols(): string[];
     getWalletBySymbol(symbol: string): Wallet | undefined;
     applyContract<T extends BaseContract>(contract: {
@@ -54,8 +56,11 @@ declare class Chain {
     btoaEscape(str: string): string;
     signMessage(authKeyQuery: string, publicKey: string, message: string, authKeyType?: AuthKeyType): Promise<string>;
     verifyMessage(publicKey: string, message: string, signature: string): Promise<boolean>;
-    signObject(authKeyQuery: string, publicKey: string, dict: Record<string, string>, authKeyType?: AuthKeyType): Promise<string>;
-    verifyObject(publicKey: string, dict: Record<string, string>, signature: string): Promise<boolean>;
+    signObject(authKeyQuery: string, publicKey: string, dict: Record<string, any>, authKeyType?: AuthKeyType): Promise<string>;
+    verifyObject(publicKey: string, dict: Record<string, any>, signature: string): Promise<boolean>;
+    sendPersonalData(authKeyQuery: string, senderAccountName: string, recipientAccountName: string, data: any, authKeyType?: AuthKeyType): Promise<any>;
+    getPersonalAsRecipient(authKeyQuery: string, recipientAccountName: string, ids: string[], authKeyType?: AuthKeyType): Promise<any>;
+    getPersonalAsSender(authKeyQuery: string, senderAccountName: string, ids: string[], authKeyType?: AuthKeyType): Promise<any>;
 }
 export default Chain;
 //# sourceMappingURL=chain.d.ts.map
