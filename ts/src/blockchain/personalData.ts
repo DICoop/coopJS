@@ -34,21 +34,21 @@ class PersonalData {
     }
 
     sendPersonalData(dataBundle: {senderPub: string, recipientPub: string, senderData: string, recipientData: string}, signature: string) {
-        return this.post('/add-data', {
+        return this.post('/v1/user-data/add-data', {
             data: dataBundle,
             signature,
         })
     }
 
     getPersonalDataAsRecipient(dataBundle: {recipientPub: string, ids: string[]}, signature: string) {
-        return this.get('/get-data-as-recipient', {
+        return this.get('/v1/user-data/get-data-as-recipient', {
             data: dataBundle,
             signature,
         })
     }
 
     getPersonalDataAsSender(dataBundle: {senderPub: string, ids: string[]}, signature: string) {
-        return this.get('/get-data-as-sender', {
+        return this.get('/v1/user-data/get-data-as-sender', {
             data: dataBundle,
             signature,
         })
