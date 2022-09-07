@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateAccountName = void 0;
+var generateAccountName = function () {
+    var result = '';
+    var possible = "abcdefghijklmnopqrstuvwxyz";
+    for (var i = 0; i < 12; i++)
+        result += possible.charAt(Math.floor(Math.random() * possible.length));
+    return result;
+};
+exports.generateAccountName = generateAccountName;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXRpbHMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi90cy9zcmMvYXV0aC91dGlscy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7QUFBTyxJQUFNLG1CQUFtQixHQUFHO0lBQy9CLElBQUksTUFBTSxHQUFHLEVBQUUsQ0FBQTtJQUVmLElBQU0sUUFBUSxHQUFHLDRCQUE0QixDQUFDO0lBQzlDLEtBQUssSUFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxFQUFFLEVBQUUsQ0FBQyxFQUFFO1FBQ3ZCLE1BQU0sSUFBSSxRQUFRLENBQUMsTUFBTSxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsSUFBSSxDQUFDLE1BQU0sRUFBRSxHQUFHLFFBQVEsQ0FBQyxNQUFNLENBQUMsQ0FBQyxDQUFDO0lBRTNFLE9BQU8sTUFBTSxDQUFBO0FBQ2pCLENBQUMsQ0FBQTtBQVJZLFFBQUEsbUJBQW1CLHVCQVEvQiIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCBnZW5lcmF0ZUFjY291bnROYW1lID0gKCk6IHN0cmluZyA9PiB7XG4gICAgbGV0IHJlc3VsdCA9ICcnXG5cbiAgICBjb25zdCBwb3NzaWJsZSA9IFwiYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXpcIjtcbiAgICBmb3IgKGxldCBpID0gMDsgaSA8IDEyOyBpKyspXG4gICAgICAgIHJlc3VsdCArPSBwb3NzaWJsZS5jaGFyQXQoTWF0aC5mbG9vcihNYXRoLnJhbmRvbSgpICogcG9zc2libGUubGVuZ3RoKSk7XG5cbiAgICByZXR1cm4gcmVzdWx0XG59Il19
