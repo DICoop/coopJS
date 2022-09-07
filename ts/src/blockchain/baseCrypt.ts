@@ -5,11 +5,11 @@ import {ChainCrypt} from "./types";
 
 class BaseCrypt implements ChainCrypt {
     decrypt(authKey: string, publicKey: string, message: string, memo?: string): Promise<string> {
-        return Promise.resolve(encrypt(authKey, publicKey, message, {memo, maxsize: 10000}));
+        return Promise.resolve(decrypt(authKey, publicKey, message, {memo}));
     }
 
     encrypt(authKey: string, publicKey: string, message: string, memo?: string): Promise<string> {
-        return Promise.resolve(decrypt(authKey, publicKey, message, {memo}));
+        return Promise.resolve(encrypt(authKey, publicKey, message, {memo, maxsize: 10000}));
     }
 
     sign(privateKey: string, message: string): string {

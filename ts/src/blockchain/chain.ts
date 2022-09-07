@@ -317,11 +317,16 @@ class Chain {
     ) {
         const result: {id: string, data: any}[] = []
         for (const item of data) {
-            const decrypted = await this.decryptMessage(authKeyQuery, item.senderPub, item.data, undefined, authKeyType)
-            result.push({
-                id: item.id,
-                data: JSON.parse(decrypted),
-            })
+            try {
+                const jsonMessage = await this.decryptMessage(authKeyQuery, item.senderPub, item.data, undefined, authKeyType)
+                const data = JSON.parse(jsonMessage)
+                result.push({
+                    id: item.id,
+                    data,
+                })
+            } catch (e) {
+                console.error(e)
+            }
         }
         return result
     }
