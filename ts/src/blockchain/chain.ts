@@ -261,7 +261,7 @@ class Chain {
         signature: string,
     ) {
         const preparedMessage = this.btoaEscape(message)
-        return this.chainCrypt.verify(publicKey, preparedMessage, signature)
+        return this.chainCrypt.verify(publicKey, signature, preparedMessage)
     }
 
     async signObject(
