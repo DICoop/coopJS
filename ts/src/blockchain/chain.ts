@@ -310,12 +310,28 @@ class Chain {
         return this.personalData.sendPersonalData(dataBundle, signature)
     }
 
+    async parseEncryptedPersonalData(
+        authKeyQuery: string,
+        data: {id: string, senderPub: string, data: string}[],
+        authKeyType?: AuthKeyType,
+    ) {
+        const result: {id: string, data: any}[] = []
+        for (const item of data) {
+            const decrypted = await this.decryptMessage(authKeyQuery, item.senderPub, item.data, undefined, authKeyType)
+            result.push({
+                id: item.id,
+                data: JSON.parse(decrypted),
+            })
+        }
+        return result
+    }
+
     async getPersonalAsRecipient(
         authKeyQuery: string,
         recipientAccountName: string,
         ids: string[],
         authKeyType?: AuthKeyType,
-    ) {
+    ): Promise<{id: string, data: any}[]> {
         const recipientPub = await this.readApi.getPermissionKeyByName(recipientAccountName, "active")
         if (!recipientPub) {
             throw ono(new Error('recipientPub cannot be empty'))
@@ -329,7 +345,11 @@ class Chain {
 
         const result = await this.personalData.getPersonalDataAsRecipient(dataBundle, signature)
 
-        return JSON.parse(result)
+        if (!result.ok) {
+            return []
+        }
+
+        return this.parseEncryptedPersonalData(authKeyQuery, result.data, authKeyType)
     }
 
     async getPersonalAsSender(
@@ -337,7 +357,7 @@ class Chain {
         senderAccountName: string,
         ids: string[],
         authKeyType?: AuthKeyType,
-    ) {
+    ): Promise<{id: string, data: any}[]> {
         const senderPub = await this.readApi.getPermissionKeyByName(senderAccountName, "active")
         if (!senderPub) {
             throw ono(new Error('senderPub cannot be empty'))
@@ -351,7 +371,11 @@ class Chain {
 
         const result = await this.personalData.getPersonalDataAsSender(dataBundle, signature)
 
-        return JSON.parse(result)
+        if (!result.ok) {
+            return []
+        }
+
+        return this.parseEncryptedPersonalData(authKeyQuery, result.data, authKeyType)
     }
 }
 
