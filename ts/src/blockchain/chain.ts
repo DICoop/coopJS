@@ -228,7 +228,7 @@ class Chain {
     }
 
     makeValueAsStr(value: any): string {
-        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
+        if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean' || value === null || value === undefined) {
             return String(value)
         }
 
