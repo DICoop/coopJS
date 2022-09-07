@@ -49,7 +49,8 @@ declare class Chain {
     transact(authKeyQuery: string, transaction: Transaction, config?: TransactConfig, authKeyType?: AuthKeyType): Promise<TransactResult | ReadOnlyTransactResult | PushTransactionArgs>;
     encryptMessage(authKeyQuery: string, publicKey: string, message: string, memo?: string, authKeyType?: AuthKeyType): Promise<string>;
     decryptMessage(authKeyQuery: string, publicKey: string, message: string, memo?: string, authKeyType?: AuthKeyType): Promise<string>;
-    objToStableMessage(dict: Record<string, string>): string;
+    makeValueAsStr(value: any): string;
+    objToStableMessage(dict: Record<string, any>): string;
     btoaEscape(str: string): string;
     signMessage(authKeyQuery: string, publicKey: string, message: string, authKeyType?: AuthKeyType): Promise<string>;
     verifyMessage(publicKey: string, message: string, signature: string): Promise<boolean>;
