@@ -41,14 +41,14 @@ class PersonalData {
     }
 
     getPersonalDataAsRecipient(dataBundle: {recipientPub: string, ids: string[]}, signature: string) {
-        return this.get('/v1/user-data/get-data-as-recipient', {
+        return this.post('/v1/user-data/get-data-as-recipient', {
             data: dataBundle,
             signature,
         })
     }
 
     getPersonalDataAsSender(dataBundle: {senderPub: string, ids: string[]}, signature: string) {
-        return this.get('/v1/user-data/get-data-as-sender', {
+        return this.post('/v1/user-data/get-data-as-sender', {
             data: dataBundle,
             signature,
         })
