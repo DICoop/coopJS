@@ -349,7 +349,7 @@ class Chain {
             return []
         }
 
-        return this.parseEncryptedPersonalData(authKeyQuery, result.data, authKeyType)
+        return this.parseEncryptedPersonalData(authKeyQuery, result.result, authKeyType)
     }
 
     async getPersonalAsSender(
@@ -375,7 +375,7 @@ class Chain {
             return []
         }
 
-        return this.parseEncryptedPersonalData(authKeyQuery, result.data, authKeyType)
+        return this.parseEncryptedPersonalData(authKeyQuery, result.result, authKeyType)
     }
 }
 
