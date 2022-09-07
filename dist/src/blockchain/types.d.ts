@@ -55,5 +55,7 @@ export declare type SignatureProviderMaker = (authKey: string) => Promise<Signat
 export interface ChainCrypt {
     encrypt(authKey: string, publicKey: string, message: string, memo?: string): Promise<string>;
     decrypt(authKey: string, publicKey: string, message: string, memo?: string): Promise<string>;
+    sign(privateKey: string, message: string): string;
+    verify(publicKey: string, signature: string, message: string): boolean;
 }
 //# sourceMappingURL=types.d.ts.map

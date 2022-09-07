@@ -49,6 +49,8 @@ declare class Chain {
     transact(authKeyQuery: string, transaction: Transaction, config?: TransactConfig, authKeyType?: AuthKeyType): Promise<TransactResult | ReadOnlyTransactResult | PushTransactionArgs>;
     encryptMessage(authKeyQuery: string, publicKey: string, message: string, memo?: string, authKeyType?: AuthKeyType): Promise<string>;
     decryptMessage(authKeyQuery: string, publicKey: string, message: string, memo?: string, authKeyType?: AuthKeyType): Promise<string>;
+    signMessage(authKeyQuery: string, publicKey: string, message: string, authKeyType?: AuthKeyType): Promise<string>;
+    verifyMessage(publicKey: string, message: string, signature: string): Promise<boolean>;
 }
 export default Chain;
 //# sourceMappingURL=chain.d.ts.map
