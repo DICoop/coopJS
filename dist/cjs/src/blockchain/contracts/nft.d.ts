@@ -28,6 +28,9 @@ export interface DeliveryRequest {
 export declare type DeliveryRequestFilled = DeliveryRequest & {
     value: string;
 };
+export declare type DeliveryRequestPersonalData = {
+    personalDataId?: string;
+};
 export interface NftMarketObject {
     base_piece_price: string;
     blocked_pieces: number;
@@ -61,7 +64,7 @@ export interface NftMarketRequest {
     status: "waiting" | "accepted" | "confirmed" | "issued" | "declined" | "cancelled" | "completed";
     day_start: number;
     day_finish: number;
-    delivery_to: DeliveryRequestFilled[];
+    delivery_to: DeliveryRequestFilled[] | DeliveryRequestPersonalData;
     meta: Record<string, unknown>;
 }
 declare class NftContract extends BaseContract {
