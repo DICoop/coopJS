@@ -20,7 +20,7 @@ class Registrator {
             throw ono(new RegistratorIsNotConfigured(`registrator config is empty`))
         }
 
-        return `${this.config.api}${path}`.replace(/\/\/+/g, '/')
+        return `${this.config.api}${path}`.replace(/\/\/+/g, '/').replace('http:/', 'http://').replace('https:/', 'https://')
     }
 
     post(path: string, data: any) {

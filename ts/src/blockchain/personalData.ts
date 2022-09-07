@@ -19,7 +19,7 @@ class PersonalData {
             throw ono(new PersonalDataIsNotConfigured(`personal data config is empty`))
         }
 
-        return `${this.config.api}${path}`.replace(/\/\/+/g, '/')
+        return `${this.config.api}${path}`.replace(/\/\/+/g, '/').replace('http:/', 'http://').replace('https:/', 'https://')
     }
 
     post(path: string, data: any) {
