@@ -343,7 +343,9 @@ class Chain {
 
         const signature = await this.signObject(authKeyQuery, recipientPub, dataBundle, authKeyType)
 
-        return this.personalData.getPersonalDataAsRecipient(dataBundle, signature)
+        const result = await this.personalData.getPersonalDataAsRecipient(dataBundle, signature)
+
+        return JSON.parse(result)
     }
 
     async getPersonalAsSender(
@@ -363,7 +365,9 @@ class Chain {
 
         const signature = await this.signObject(authKeyQuery, senderPub, dataBundle, authKeyType)
 
-        return this.personalData.getPersonalDataAsSender(dataBundle, signature)
+        const result = await this.personalData.getPersonalDataAsSender(dataBundle, signature)
+
+        return JSON.parse(result)
     }
 }
 
