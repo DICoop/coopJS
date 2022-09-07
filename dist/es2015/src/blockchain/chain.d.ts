@@ -59,8 +59,22 @@ declare class Chain {
     signObject(authKeyQuery: string, publicKey: string, dict: Record<string, any>, authKeyType?: AuthKeyType): Promise<string>;
     verifyObject(publicKey: string, dict: Record<string, any>, signature: string): Promise<boolean>;
     sendPersonalData(authKeyQuery: string, senderAccountName: string, recipientAccountName: string, data: any, authKeyType?: AuthKeyType): Promise<any>;
-    getPersonalAsRecipient(authKeyQuery: string, recipientAccountName: string, ids: string[], authKeyType?: AuthKeyType): Promise<any>;
-    getPersonalAsSender(authKeyQuery: string, senderAccountName: string, ids: string[], authKeyType?: AuthKeyType): Promise<any>;
+    parseEncryptedPersonalData(authKeyQuery: string, data: {
+        id: string;
+        senderPub: string;
+        data: string;
+    }[], authKeyType?: AuthKeyType): Promise<{
+        id: string;
+        data: any;
+    }[]>;
+    getPersonalAsRecipient(authKeyQuery: string, recipientAccountName: string, ids: string[], authKeyType?: AuthKeyType): Promise<{
+        id: string;
+        data: any;
+    }[]>;
+    getPersonalAsSender(authKeyQuery: string, senderAccountName: string, ids: string[], authKeyType?: AuthKeyType): Promise<{
+        id: string;
+        data: any;
+    }[]>;
 }
 export default Chain;
 //# sourceMappingURL=chain.d.ts.map
