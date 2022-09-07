@@ -2,11 +2,18 @@
   "name": "unicore",
   "version": "1.12.4",
   "type": "commonjs",
-  "main": "./dist/src/index.js",
-  "types": "./dist/src/index.d.ts",
+  "main": "./dist/es2015/index.js",
+  "types": "./dist/es2015/index.d.ts",
+  "exports": {
+    "require": "./dist/cjs/index.js",
+    "import": "./dist/esm/example.js"
+  },
   "scripts": {
     "clean": "shx rm -rf dist/*",
-    "build": "tsc",
+    "build": "npm run build:es2015 && npm run build:esm && npm run build:cjs",
+    "build:es2015": "tsc --module es2015 --target es2015 --outDir dist/es2015",
+    "build:esm": "tsc --module es2015 --target es5 --outDir dist/esm",
+    "build:cjs": "tsc --module commonjs --target es5 --outDir dist/cjs",
     "watch": "tsc --watch",
     "test": "mocha --ui qunit",
     "testall": "mocha --ui qunit dist/test",
