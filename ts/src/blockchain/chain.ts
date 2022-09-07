@@ -29,6 +29,7 @@ import {NotImplementedError} from './errors';
 import BaseCrypt from "./baseCrypt";
 import Wallet from "./wallet";
 import Explorer from "./explorer";
+import PersonalData from "./personalData";
 
 interface RpcsByEndpoints {
     [key: string]: JsonRpc
@@ -48,6 +49,7 @@ class Chain {
     private readonly chainCrypt: ChainCrypt
     private textDecoder?: typeof TextDecoder
     private textEncoder?: typeof TextEncoder
+    private personalData: PersonalData
 
     public eosioContract: EosioContract
     public coreContract: CoreContract
@@ -61,6 +63,7 @@ class Chain {
     constructor(
         chainConfig: ChainConfig,
         tableCodeConfig: TableCodeConfig,
+        personalData: PersonalData,
         authKeySearchCallback?: AuthKeySearchCallback,
         signatureProviderMaker?: SignatureProviderMaker,
         chainCrypt?: ChainCrypt,
@@ -79,6 +82,7 @@ class Chain {
         this.textDecoder = textDecoder
         this.textEncoder = textEncoder
         this.coreSymbol = chainConfig.coreSymbol
+        this.personalData = personalData
 
         this.eosioContract = this.applyContract(EosioContract)
         this.coreContract = this.applyContract(CoreContract)
@@ -279,7 +283,7 @@ class Chain {
     async signObject(
         authKeyQuery: string,
         publicKey: string,
-        dict: Record<string, string>,
+        dict: Record<string, any>,
         authKeyType?: AuthKeyType,
     ) {
         const message = this.objToStableMessage(dict)
@@ -288,11 +292,78 @@ class Chain {
 
     async verifyObject(
         publicKey: string,
-        dict: Record<string, string>,
+        dict: Record<string, any>,
         signature: string,
     ) {
         const message = this.objToStableMessage(dict)
         return this.verifyMessage(publicKey, message, signature)
+    }
+
+    async sendPersonalData(
+        authKeyQuery: string,
+        senderAccountName: string,
+        recipientAccountName: string,
+        data: any,
+        authKeyType?: AuthKeyType,
+    ) {
+        const senderPub = await this.readApi.getPermissionKeyByName(senderAccountName, "active")
+        const recipientPub = await this.readApi.getPermissionKeyByName(recipientAccountName, "active")
+        if (!senderPub || !recipientPub) {
+            throw ono(new Error('senderPub or recipientPub cannot be empty'))
+        }
+        const jsonMessage = JSON.stringify(data)
+        const encryptedToSender = await this.encryptMessage(authKeyQuery, senderPub, jsonMessage, undefined, authKeyType)
+        const encryptedToRecipient = await this.encryptMessage(authKeyQuery, recipientPub, jsonMessage, undefined, authKeyType)
+        const dataBundle = {
+            senderPub,
+            recipientPub,
+            senderData: encryptedToSender,
+            recipientData: encryptedToRecipient,
+        }
+
+        const signature = await this.signObject(authKeyQuery, senderPub, dataBundle, authKeyType)
+
+        return this.personalData.sendPersonalData(dataBundle, signature)
+    }
+
+    async getPersonalAsRecipient(
+        authKeyQuery: string,
+        recipientAccountName: string,
+        ids: string[],
+        authKeyType?: AuthKeyType,
+    ) {
+        const recipientPub = await this.readApi.getPermissionKeyByName(recipientAccountName, "active")
+        if (!recipientPub) {
+            throw ono(new Error('recipientPub cannot be empty'))
+        }
+        const dataBundle = {
+            recipientPub,
+            ids,
+        }
+
+        const signature = await this.signObject(authKeyQuery, recipientPub, dataBundle, authKeyType)
+
+        return this.personalData.getPersonalDataAsRecipient(dataBundle, signature)
+    }
+
+    async getPersonalAsSender(
+        authKeyQuery: string,
+        senderAccountName: string,
+        ids: string[],
+        authKeyType?: AuthKeyType,
+    ) {
+        const senderPub = await this.readApi.getPermissionKeyByName(senderAccountName, "active")
+        if (!senderPub) {
+            throw ono(new Error('senderPub cannot be empty'))
+        }
+        const dataBundle = {
+            senderPub,
+            ids,
+        }
+
+        const signature = await this.signObject(authKeyQuery, senderPub, dataBundle, authKeyType)
+
+        return this.personalData.getPersonalDataAsSender(dataBundle, signature)
     }
 }
 

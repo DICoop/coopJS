@@ -54,11 +54,16 @@ export interface RegistratorConfig {
   appName: string
 }
 
+export interface PersonalDataConfig {
+  api: string
+}
+
 export interface Config {
   chains: ChainConfig[]
   ual: UalConfig
   tableCodeConfig: TableCodeConfigStrict
   registrator?: RegistratorConfig
+  personalData?: PersonalDataConfig
 }
 
 export type AuthKeySearchCallback = (authKeyQuery: string) => Promise<string | null>

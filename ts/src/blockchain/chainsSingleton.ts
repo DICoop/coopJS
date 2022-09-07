@@ -5,6 +5,7 @@ import Chain from './chain'
 import {Config, SignatureProviderMaker, AuthKeySearchCallback, ChainCrypt} from './types'
 import { UnknownChainError, ChainsIsNotInitializedError } from './errors'
 import Registrator from "./registrator";
+import PersonalData from "./personalData";
 
 interface ChainsByName {
   [key: string]: Chain
@@ -15,6 +16,7 @@ class ChainsSingleton {
   private initialized: boolean
   private rootChain: string
   public registrator: Registrator
+  public personalData: PersonalData
   public textDecoder?: typeof TextDecoder
   public textEncoder?: typeof TextEncoder
 
@@ -23,6 +25,7 @@ class ChainsSingleton {
     this.initialized = false
     this.rootChain = 'unknown'
     this.registrator = new Registrator(null)
+    this.personalData = new PersonalData(null)
   }
 
   init(
@@ -40,10 +43,15 @@ class ChainsSingleton {
     this.textDecoder = textDecoder
     this.textEncoder = textEncoder
 
+    if (config.personalData) {
+      this.personalData.setConfig(config.personalData)
+    }
+
     for (const chain of config.chains) {
       this.chainsByName[chain.name] = new Chain(
           chain,
           config.tableCodeConfig,
+          this.personalData,
           authKeySearchCallback,
           signatureProviderMaker,
           chainCrypt,

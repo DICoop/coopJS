@@ -7,3 +7,5 @@ export class ChainsIsNotInitializedError extends Error {}
 export class NotImplementedError extends Error {}
 
 export class RegistratorIsNotConfigured extends Error {}
+
+export class PersonalDataIsNotConfigured extends Error {}
