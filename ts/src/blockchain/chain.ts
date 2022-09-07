@@ -193,14 +193,8 @@ class Chain {
             throw ono(new Error('authKey cannot be empty'))
         }
 
-        const permissionKey = await this.readApi.getPermissionKeyByName(publicKey, "active")
-
-        if (!permissionKey) {
-            throw ono(new Error('permissionKey cannot be empty'))
-        }
-
         const preparedMessage = btoa(unescape(encodeURIComponent(message)))
-        return this.chainCrypt.encrypt(authKey, permissionKey, preparedMessage, memo)
+        return this.chainCrypt.encrypt(authKey, publicKey, preparedMessage, memo)
     }
 
     async decryptMessage(
@@ -216,17 +210,7 @@ class Chain {
             throw ono(new Error('authKey cannot be empty'))
         }
 
-        let permissionKey = await this.readApi.getPermissionKeyByName(publicKey, "gateway")
-
-        if (!permissionKey) {
-            permissionKey = await this.readApi.getPermissionKeyByName(publicKey, "active")
-        }
-
-        if (!permissionKey) {
-            throw ono(new Error('permissionKey cannot be empty'))
-        }
-
-        const decryptedMessage = await this.chainCrypt.decrypt(authKey, permissionKey, message, memo)
+        const decryptedMessage = await this.chainCrypt.decrypt(authKey, publicKey, message, memo)
 
         return decodeURIComponent(escape(atob(decryptedMessage)))
     }
