@@ -47,6 +47,10 @@ declare module "eosjs-ecc" {
 
   export function PublicKey(arg: any): any;
 
+  export function sign(data: string, privateKey: string): string;
+
+  export function verify(signature: string, data: string, publicKey: string): boolean;
+
   module Aes {
     export function decrypt(private_key: string, public_key: string, nonce: Long, message: string | Buffer, checksum: number): Buffer
 
