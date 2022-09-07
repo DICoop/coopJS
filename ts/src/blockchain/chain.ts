@@ -227,6 +227,15 @@ class Chain {
         return decodeURIComponent(escape(atob(decryptedMessage)))
     }
 
+    objToStableMessage(dict: Record<string, string>) {
+        const keys = Object.keys(dict).sort()
+        return keys.map(key => `${key}=${dict[key]}`).join('&')
+    }
+
+    btoaEscape(str: string) {
+        return btoa(unescape(encodeURIComponent(str)))
+    }
+
     async signMessage(
         authKeyQuery: string,
         publicKey: string,
@@ -239,7 +248,7 @@ class Chain {
             throw ono(new Error('authKey cannot be empty'))
         }
 
-        const preparedMessage = btoa(unescape(encodeURIComponent(message)))
+        const preparedMessage = this.btoaEscape(message)
         return this.chainCrypt.sign(authKey, preparedMessage)
     }
 
@@ -248,8 +257,27 @@ class Chain {
         message: string,
         signature: string,
     ) {
-        const preparedMessage = btoa(unescape(encodeURIComponent(message)))
+        const preparedMessage = this.btoaEscape(message)
         return this.chainCrypt.verify(publicKey, preparedMessage, signature)
+    }
+
+    async signObject(
+        authKeyQuery: string,
+        publicKey: string,
+        dict: Record<string, string>,
+        authKeyType?: AuthKeyType,
+    ) {
+        const message = this.objToStableMessage(dict)
+        return this.signMessage(authKeyQuery, publicKey, message, authKeyType)
+    }
+
+    async verifyObject(
+        publicKey: string,
+        dict: Record<string, string>,
+        signature: string,
+    ) {
+        const message = this.objToStableMessage(dict)
+        return this.verifyMessage(publicKey, message, signature)
     }
 }
 
