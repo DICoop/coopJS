@@ -47,6 +47,9 @@ export interface NftMarketObject {
   min_piece_price: string
   object_id: number
   remain_pieces: number
+  total_pieces_on_sell: number
+  solded_pieces: number
+  backed_pieces: number
   sales_closed_at: string
   sales_start_at: string
   seller: string
