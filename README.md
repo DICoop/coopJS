@@ -1,6 +1,6 @@
 # UNICORE.JS
 
-Unicore.js is universal core library for UNI OS.
+Unicore.js is universal core library for UNI OS
 
 It is based on a singleton model that accepts a configuration and provides access to one or more blockchains and contracts.
 
