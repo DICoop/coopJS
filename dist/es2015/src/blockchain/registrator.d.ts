@@ -7,7 +7,7 @@ declare class Registrator {
     getUrl(path: string): string;
     post(path: string, data: any): Promise<any>;
     get(path: string, params?: any): Promise<any>;
-    setAccount(username: AccountName, pub: string, ownerpub: string, email: string, referer: string | null, callback: string, accountType: string): Promise<any>;
+    setAccount(username: AccountName, pub: string, ownerpub: string, email: string, referer: string | null, callback: string, accountType: string, meta: String): Promise<any>;
     checkEmail(email: string): Promise<any>;
 }
 export default Registrator;
