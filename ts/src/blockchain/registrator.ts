@@ -34,7 +34,7 @@ class Registrator {
         }).then(r => r.data)
     }
 
-    setAccount(username: AccountName, pub: string, ownerpub: string, email: string, referer: string | null, callback: string, accountType: string) {
+    setAccount(username: AccountName, pub: string, ownerpub: string, email: string, referer: string | null, callback: string, accountType: string, meta: String) {
         return this.get('/set', {
             username,
             active_pub: pub,
@@ -44,7 +44,7 @@ class Registrator {
             referer,
             callback,
             type: accountType,
-            meta: {},
+            meta: meta,
         })
     }
 

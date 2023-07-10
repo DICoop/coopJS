@@ -96,12 +96,6 @@ class ReadApi {
     return instance.getAccount(...args)
   }
 
-  getCurrencyBalance: EosApi['getCurrencyBalance'] = (...args) => {
-    const instance = this.getInstance()
-
-    return instance.getCurrencyBalance(...args)
-  }
-
   async getUserBalance(account: string, symbol: string) {
     const [balance] = await this.getCurrencyBalance("eosio.token", account, symbol)
 
@@ -114,6 +108,14 @@ class ReadApi {
 
     return permission?.required_auth.keys[0].key
   }
+
+  async getInfo(accountName: string, name: string) {
+    const account = await this.getAccount(accountName);
+    const permission = account.permissions.find(el => el.perm_name === name)
+
+    return permission?.required_auth.keys[0].key
+  }
+
 
   getTableRows<RowType>(
     code: string,
