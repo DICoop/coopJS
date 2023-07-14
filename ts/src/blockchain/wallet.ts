@@ -9,6 +9,8 @@ class Wallet {
     canTransfer: boolean;
     canDeposit: boolean;
     canWithdraw: boolean;
+    canChange: boolean;
+    routeForChange: string;
 
     constructor(config: WalletConfig, readApi: ReadApi) {
         this.symbol = config.symbol;
@@ -16,6 +18,8 @@ class Wallet {
         this.canTransfer = config.canTransfer || false;
         this.canDeposit = config.canDeposit || false;
         this.canWithdraw = config.canWithdraw || false;
+        this.canChange = config.canChange || false;
+        this.routeForChange = config.routeForChange || "";
         this.readApi = readApi;
     }
 

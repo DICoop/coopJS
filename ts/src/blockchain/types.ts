@@ -32,6 +32,9 @@ export interface WalletConfig {
   canTransfer?: boolean
   canDeposit?: boolean
   canWithdraw?: boolean
+  canChange?: boolean
+  routeForChange?: string
+
 }
 
 export interface ChainConfig {

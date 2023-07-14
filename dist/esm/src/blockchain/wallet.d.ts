@@ -8,6 +8,8 @@ declare class Wallet {
     canTransfer: boolean;
     canDeposit: boolean;
     canWithdraw: boolean;
+    canChange: boolean;
+    routeForChange: string;
     constructor(config: WalletConfig, readApi: ReadApi);
     getUserBalance(username: AccountName): Promise<string>;
 }
