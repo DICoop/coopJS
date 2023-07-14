@@ -10,6 +10,7 @@ class Wallet {
     canDeposit: boolean;
     canWithdraw: boolean;
     canChange: boolean;
+    canChangeButDisabled: boolean;
     routeForChange: string;
 
     constructor(config: WalletConfig, readApi: ReadApi) {
@@ -19,6 +20,7 @@ class Wallet {
         this.canDeposit = config.canDeposit || false;
         this.canWithdraw = config.canWithdraw || false;
         this.canChange = config.canChange || false;
+        this.canChangeButDisabled = config.canChangeButDisabled || false;
         this.routeForChange = config.routeForChange || "";
         this.readApi = readApi;
     }
