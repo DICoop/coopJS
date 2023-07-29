@@ -18,6 +18,8 @@ declare module 'eosjs-api' {
 
     getCurrencyBalance(code: string, account: AccountName, symbol?: string): Promise<string[]>
 
+    getAbi(code: string): Promise<string[]>
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getTableRows<RowType = any>(
       json: boolean,

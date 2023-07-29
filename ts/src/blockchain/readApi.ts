@@ -96,6 +96,12 @@ class ReadApi {
     return instance.getAccount(...args)
   }
 
+  getAbi: EosApi['getAbi'] = (...args) => {
+    const instance = this.getInstance()
+
+    return instance.getAbi(...args)
+  }
+
   getCurrencyBalance: EosApi['getCurrencyBalance'] = (...args) => {
     const instance = this.getInstance()
 

@@ -16,6 +16,7 @@ declare class ReadApi {
     getEndpoint(): string;
     getKeyAccounts: EosApi['getKeyAccounts'];
     getAccount: EosApi['getAccount'];
+    getAbi: EosApi['getAbi'];
     getCurrencyBalance: EosApi['getCurrencyBalance'];
     getUserBalance(account: string, symbol: string): Promise<string>;
     getPermissionKeyByName(accountName: string, name: string): Promise<string | undefined>;
