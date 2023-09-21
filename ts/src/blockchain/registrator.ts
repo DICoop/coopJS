@@ -34,16 +34,15 @@ class Registrator {
         }).then(r => r.data)
     }
 
-    setAccount(username: AccountName, pub: string, ownerpub: string, email: string, referer: string | null, callback: string, accountType: string, meta: String) {
-        return this.get('/set', {
+    setAccount(locale: string, username: AccountName, pub: string, ownerpub: string, email: string, referer: string | null, callback: string, meta: String) {
+        return this.get('/register', {
+            locale,
             username,
             active_pub: pub,
             owner_pub: ownerpub,
             email,
-            locale: 'ru',
             referer,
             callback,
-            type: accountType,
             meta: meta,
         })
     }
