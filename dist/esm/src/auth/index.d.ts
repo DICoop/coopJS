@@ -1,5 +1,4 @@
-/// <reference types="hdkey" />
-export declare const makeHdNodeByMnemonic: (mnemonic: string) => Promise<import("hdkey")>;
+export declare const makeHdNodeByMnemonic: (mnemonic: string) => Promise<import("bip32").BIP32Interface>;
 export declare const makePublicKeyByMnemonic: (mnemonic: string) => Promise<any>;
 export interface AccountData {
     name: string;
