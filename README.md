@@ -1,4 +1,4 @@
-# coopJS
+# coopjs
 
 CoopJS is universal core library for cooperatives.
 
