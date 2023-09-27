@@ -1,6 +1,6 @@
 # coopJS
 
-CoopJS is universal core library for cooperatives
+CoopJS is universal core library for cooperatives.
 
 It is based on a singleton model that accepts a configuration and provides access to one or more blockchains and contracts.
 

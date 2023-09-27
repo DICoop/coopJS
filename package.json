@@ -1,5 +1,5 @@
 {
-  "name": "coopJS",
+  "name": "coopjs",
   "version": "1.15.1",
   "type": "commonjs",
   "main": "./dist/cjs/src/index.js",
