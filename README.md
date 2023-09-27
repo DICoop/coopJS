@@ -1,19 +1,19 @@
-# UNICORE.JS
+# coopJS
 
-Unicore.js is universal core library for UNI OS
+CoopJS is universal core library for cooperatives 
 
 It is based on a singleton model that accepts a configuration and provides access to one or more blockchains and contracts.
 
 ## Installation
 
 ```bash
-yarn add https://github.com/dacom-core/unicoreJS#<version from tags, ex. v1.0.0-beta3>
+yarn add coopjs>
 ```
 
 Create a chainsMain.ts file with the following content:
 
 ```typescript
-import { ChainsSingleton } from 'unicore'
+import { ChainsSingleton } from 'coopjs'
 import config from './config'
 
 const instance = new ChainsSingleton()
@@ -28,7 +28,7 @@ Config example:
 export default {
   chains: [
     {
-      name: 'FLOWER',
+      name: 'AXON',
       rpcEndpoints: [
         {
           protocol: 'https',
@@ -40,7 +40,7 @@ export default {
     },
   ],
   ual: {
-    rootChain: 'FLOWER',
+    rootChain: 'AXON',
   },
   tableCodeConfig: {
     core: 'unicore',

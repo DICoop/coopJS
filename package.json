@@ -1,5 +1,5 @@
 {
-  "name": "unicore",
+  "name": "coopJS",
   "version": "1.15.1",
   "type": "commonjs",
   "main": "./dist/cjs/src/index.js",
@@ -21,7 +21,7 @@
     "release": "yarn prepack && git add . && git commit -a -m 'dist' && release-it"
   },
   "license": "UNLICENSE",
-  "private": true,
+  "private": false,
   "// devDependencies": {
     "@types/node": "Needed for unit test assertions (assert.equal() etc.)",
     "shx": "Needed for development-time package.json scripts"
