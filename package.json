@@ -21,7 +21,7 @@
     "release": "yarn prepack && git add . && git commit -a -m 'dist' && release-it"
   },
   "license": "UNLICENSE",
-  "private": false,
+  "private": true,
   "// devDependencies": {
     "@types/node": "Needed for unit test assertions (assert.equal() etc.)",
     "shx": "Needed for development-time package.json scripts"
