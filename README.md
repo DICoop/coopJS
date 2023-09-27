@@ -1,4 +1,4 @@
-# coopjs
+# coopJS
 
 CoopJS is universal core library for cooperatives.
 
@@ -7,7 +7,7 @@ It is based on a singleton model that accepts a configuration and provides acces
 ## Installation
 
 ```bash
-yarn add coopjs>
+yarn add https://github.com/DICoop/coopJS#<version from tags, ex. v1.0.0-beta3>
 ```
 
 Create a chainsMain.ts file with the following content:
