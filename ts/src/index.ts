@@ -6,6 +6,7 @@ export {
     AccountData,
     makeAccountByMnemonic,
     makeAccountByWif,
+    generateKeyPair
 } from './auth'
 
 export {isValidWif} from './auth/keys/ecc'
