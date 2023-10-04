@@ -11,7 +11,8 @@ export declare const makeAccountByMnemonic: (username: string, mnemonic: string)
 export declare const makeAccountByWif: (username: string, wif: string) => Promise<AccountData>;
 export declare const generateAccount: () => Promise<AccountData>;
 export declare const generateKeyPair: () => Promise<{
-    private_wif: string;
-    publicKey: CryptoKey;
+    mnemonic: string;
+    private_key: any;
+    public_key: any;
 }>;
 //# sourceMappingURL=index.d.ts.map
