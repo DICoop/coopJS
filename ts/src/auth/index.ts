@@ -90,7 +90,6 @@ export const generateKeyPair = async() => {
   
   return {mnemonic, private_key: hdPrivateToWif(hdPrivateKeyBuffer), public_key: hdPublicToEccPublicKey(hdPublicKeyBuffer)}  
 }
-
 // export const generateKeyPair = async() => {
 //   const { privateKey, publicKey } = await subtle.generateKey(
 //   {
