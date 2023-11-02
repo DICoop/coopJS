@@ -79,6 +79,22 @@ export const generateAccount = async (): Promise<AccountData> => {
   return makeAccount(name, mnemonic, hdPrivateToWif(hdPrivateKeyBuffer), hdPublicToEccPublicKey(hdPublicKeyBuffer))
 }
 
+export const hasPrivateKey = async(accountData: any, permissionName: any) => {
+  if (!accountData || !permissionName) {
+    return false;
+  }
+
+  const permission = accountData.permissions.find((p : any) => p.perm_name === permissionName);
+  if (!permission) {
+    return false;
+  }
+
+  const hasPublicKeys = permission.required_auth.keys.some((key : any) => key.key && (key.key.startsWith('EOS') || key.key.startsWith('PUB_K1_')));
+  
+  return hasPublicKeys;
+
+}
+
 export const generateKeyPair = async() => {
   const mnemonic = generateMnemonic()
   const seed = await mnemonicToSeed(mnemonic)

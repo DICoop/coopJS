@@ -6,6 +6,7 @@
     "declarationMap": true,
     "inlineSourceMap": true,
     "inlineSources": true,
+    "noImplicitAny": true,
     "lib": [
       "es6",
       "es2021",

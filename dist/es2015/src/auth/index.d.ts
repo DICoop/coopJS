@@ -10,6 +10,7 @@ export declare const makeAccount: (username: string, mnemonic: string, wif: stri
 export declare const makeAccountByMnemonic: (username: string, mnemonic: string) => Promise<AccountData>;
 export declare const makeAccountByWif: (username: string, wif: string) => Promise<AccountData>;
 export declare const generateAccount: () => Promise<AccountData>;
+export declare const hasPrivateKey: (accountData: any, permissionName: any) => Promise<any>;
 export declare const generateKeyPair: () => Promise<{
     mnemonic: string;
     private_key: any;
