@@ -23,7 +23,6 @@ export const makeHdNodeByMnemonic = async (mnemonic: string) => {
   return hdFirstNode
 }
 
-
 export const makePublicKeyByMnemonic = async (mnemonic: string) => {
   const hdFirstNode = await makeHdNodeByMnemonic(mnemonic)
   const hdPublicKeyBuffer = hdNodeToPublicKeyBuffer(hdFirstNode)
