@@ -1,6 +1,6 @@
 {
   "name": "coopjs",
-  "version": "1.16.6",
+  "version": "1.16.7",
   "type": "commonjs",
   "main": "./dist/cjs/src/index.js",
   "types": "./dist/cjs/src/index.d.ts",
