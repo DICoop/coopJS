@@ -1,5 +1,5 @@
 /// <reference path="../../../ts/src/eos-api.d.ts" />
-export { makePublicKeyByMnemonic, generateAccount, AccountData, makeAccountByMnemonic, makeAccountByWif, generateKeyPair } from './auth';
+export { makePublicKeyByMnemonic, generateAccount, AccountData, makeAccountByMnemonic, makeAccountByWif, generateKeyPair, checkPublicKey } from './auth';
 export { isValidWif } from './auth/keys/ecc';
 export { default as ChainsSingleton } from './blockchain/chainsSingleton';
 export { default as ReadApi } from './blockchain/readApi';
